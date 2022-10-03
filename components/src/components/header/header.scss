@@ -1,0 +1,20 @@
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  background-color: #282c34;
+  font-size: calc(4px + 2vmin);
+  color: white;
+  a {
+    color: #fff;
+    text-decoration: none;
+    text-transform: uppercase;
+    margin-right: 25px;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+  .active {
+    color: crimson;
+  }
+}
