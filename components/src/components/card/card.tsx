@@ -9,8 +9,6 @@ export default class Card extends Component {
   };
 
   render(): React.ReactNode {
-    console.log(this.state.cards);
-
     return (
       <div className="movies-list">
         {this.state.cards &&
