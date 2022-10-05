@@ -19,11 +19,3 @@ describe('index', () => {
     expect(screen.getByTestId('main-page')).toBeInTheDocument();
   });
 });
-//
-// describe('Test index.ts', () => {
-//   it('Should render app without crashing', () => {
-//     expect(
-//       JSON.stringify(Object.assign({}, index, { _reactInternalInstance: 'censored' }))
-//     ).toMatchSnapshot();
-//   });
-// });

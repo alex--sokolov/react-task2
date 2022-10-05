@@ -21,6 +21,6 @@ describe('Header', () => {
       </BrowserRouter>
     );
     const btnMain = screen.getByTestId('main-link');
-    expect(btnMain.getAttribute('href')).toBe('/');
+    expect(btnMain.getAttribute('href')).toBe('/main');
   });
 });

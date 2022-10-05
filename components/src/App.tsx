@@ -11,7 +11,8 @@ function App() {
     <div className="app-container" data-testid="app">
       <Header />
       <Routes>
-        <Route path="/" element={<Main />} />
+        <Route index element={<Main />} />
+        <Route path="main" element={<Main />} />
         <Route path="about" element={<AboutPage />} />
         <Route path="*" element={<Page404 />} />
       </Routes>

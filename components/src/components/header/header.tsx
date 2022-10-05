@@ -6,18 +6,10 @@ class Header extends Component {
   render(): React.ReactNode {
     return (
       <header id="header" className="header">
-        <NavLink
-          to="/"
-          data-testid="main-link"
-          className={({ isActive }) => (isActive ? 'active' : '')}
-        >
+        <NavLink to="/main" data-testid="main-link">
           Main
         </NavLink>
-        <NavLink
-          to="/about"
-          data-testid="about-link"
-          className={({ isActive }) => (isActive ? 'active' : '')}
-        >
+        <NavLink to="/about" data-testid="about-link">
           About
         </NavLink>
       </header>
