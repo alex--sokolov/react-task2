@@ -12,6 +12,9 @@ class Header extends Component {
         <NavLink to="/about" data-testid="about-link">
           About
         </NavLink>
+        <NavLink to="/forms" data-testid="forms-link">
+          Forms
+        </NavLink>
       </header>
     );
   }

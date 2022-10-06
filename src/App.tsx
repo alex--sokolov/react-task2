@@ -5,6 +5,7 @@ import Header from './components/header/header';
 import Page404 from './components/page404/page404';
 import AboutPage from './components/about/about';
 import Main from './components/main/main';
+import Forms from 'components/forms/forms';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <Routes>
         <Route index element={<Main />} />
         <Route path="main" element={<Main />} />
+        <Route path="forms" element={<Forms />} />
         <Route path="about" element={<AboutPage />} />
         <Route path="*" element={<Page404 />} />
       </Routes>

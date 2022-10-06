@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AnalysisUIOptions">
+    <option name="SCOPE_TYPE" value="3" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="7665eb75-58a6-4ab1-9f31-f0e58e6f0ff3" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/components/forms/forms.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/forms/forms.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/.editorconfig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/.eslintignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/.eslintrc.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/.husky/pre-commit" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/.lintstagedrc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/.prettierrc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/public/favicon.ico" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/public/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/public/logo192.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/public/logo512.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/public/manifest.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/public/robots.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/src/App.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/src/App.test.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/src/App.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/src/assets/img/svg/search-icon.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/src/components/about/about.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/src/components/about/about.test.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/src/components/about/about.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/src/components/card/card.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/src/components/card/card.test.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/src/components/card/card.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/src/components/cards-list/cards-list.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/src/components/cards-list/cards-list.test.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/src/components/cards-list/cards-list.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/src/components/header/header.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/src/components/header/header.test.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/src/components/header/header.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/src/components/main/main.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/src/components/main/main.test.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/src/components/main/main.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/src/components/page404/page404.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/src/components/page404/page404.test.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/src/components/page404/page404.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/src/components/search-bar/search-bar.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/src/components/search-bar/search-bar.test.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/src/components/search-bar/search-bar.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/src/data/img/4q2hz2m8hubgvijz8Ez0T2Os2Yv.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/src/data/img/6wxfWZxQcuv2QgxIQKj0eYTdKTv.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/src/data/img/AoWY1gkcNzabh229Icboa1Ff0BM.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/src/data/img/YxopfHpsCV1oF8CZaL4M3Eodqa.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/src/data/img/bT3c4TSOP8vBmMoXZRDPTII6eDa.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/src/data/img/dkokENeY5Ka30BFgWAqk14mbnGs.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/src/data/img/h8Rb9gBr48ODIwYUttZNYeMWeUU.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/src/data/img/hjS9mH8KvRiGHgjk6VUZH7OT0Ng.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/src/data/img/lPsD10PP4rgUGiGR4CCXA6iY0QQ.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/src/data/img/m6bUeV4mczG3z2YXXr5XDKPsQzv.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/src/data/img/msI5a9TPnepx47JUb2vl88hb80R.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/src/data/img/nkayOAUBUu4mMvyNf9iHSUiPjF1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/src/data/img/nxxuWC32Y6TULj4VnVwMPUFLIpK.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/src/data/img/oBgWY00bEFeZ9N25wWVyuQddbAo.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/src/data/img/pgqgaUx1cJb5oZQQ5v0tNARCeBp.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/src/data/img/rEm96ib0sPiZBADNKBHKBv5bve9.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/src/data/img/vXHzO26mJaOt4VO7ZFiM6No5ScT.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/src/data/img/w6n1pu9thpCVHILejsuhKf3tNCV.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/src/data/img/xCEg6KowNISWvMh8GvPSxtdf9TO.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/src/data/img/z8CExJekGrEThbpMXAmCFvvgoJR.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/src/data/movies.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/src/index.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/src/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/src/interfaces.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/src/intex.test.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/src/logo.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/src/setupTests.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/tsconfig.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/yarn.lock" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="TypeScript JSX File" />
+        <option value="SCSS File" />
+        <option value="TypeScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectId" id="2FdH5PGivuUbOb5MwbySD4SIauC" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../easyschool" />
+    <property name="list.type.of.created.stylesheet" value="SCSS" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="nodejs_package_manager_path" value="yarn" />
+    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.TypeScript" />
+    <property name="ts.external.directory.path" value="C:\ReactJS\react2022\alex--sokolov-REACT2022Q3\node_modules\typescript\lib" />
+    <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\ReactJS\react2022\alex--sokolov-REACT2022Q3\src\components\forms" />
+      <recent name="C:\ReactJS\react2022\alex--sokolov-REACT2022Q3\components\src" />
+      <recent name="C:\ReactJS\react2022\alex--sokolov-REACT2022Q3\components\src\components" />
+      <recent name="C:\ReactJS\react2022\alex--sokolov-REACT2022Q3\components\src\assets" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="7665eb75-58a6-4ab1-9f31-f0e58e6f0ff3" name="Changes" comment="" />
+      <created>1664814857812</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1664814857812</updated>
+      <workItem from="1664814859508" duration="13121000" />
+      <workItem from="1664999155853" duration="3949000" />
+      <workItem from="1665043277740" duration="13248000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

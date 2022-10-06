@@ -47,3 +47,9 @@ export interface IMovie {
   vote_average: number;
   vote_count: number;
 }
+
+export interface IForm {
+  name: string;
+  surname: string;
+  zipCode: string;
+}
