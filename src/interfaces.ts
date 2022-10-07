@@ -48,8 +48,35 @@ export interface IMovie {
   vote_count: number;
 }
 
+export enum MovieStatus {
+  released = 'released',
+  waiting = 'waiting for release',
+}
+
+export enum Genre {
+  comedy = 'Comedy',
+  horror = 'Horror',
+  action = 'Action',
+  crime = 'Crime',
+  thriller = 'Thriller',
+  drama = 'Drama',
+}
+
 export interface IForm {
-  name: string;
-  surname: string;
-  zipCode: string;
+  title: string;
+  overview: string;
+  country: string;
+  releaseDate: string;
+  genre: Genre | null;
+  isConfirmPolitics: boolean;
+  adult: boolean;
+  logo: HTMLImageElement | undefined;
+}
+
+export type IDateTypeField = 'text' | 'date';
+
+export interface IStateForms {
+  form: IForm;
+  dateType: IDateTypeField;
+  submit: boolean;
 }

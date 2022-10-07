@@ -5,80 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7665eb75-58a6-4ab1-9f31-f0e58e6f0ff3" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/components/forms/forms.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/forms/forms.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/.editorconfig" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/.eslintignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/.eslintrc.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/.husky/pre-commit" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/.lintstagedrc" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/.prettierrc" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/package-lock.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/package.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/public/favicon.ico" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/public/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/public/logo192.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/public/logo512.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/public/manifest.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/public/robots.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/src/App.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/src/App.test.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/src/App.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/src/assets/img/svg/search-icon.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/src/components/about/about.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/src/components/about/about.test.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/src/components/about/about.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/src/components/card/card.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/src/components/card/card.test.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/src/components/card/card.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/src/components/cards-list/cards-list.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/src/components/cards-list/cards-list.test.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/src/components/cards-list/cards-list.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/src/components/header/header.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/src/components/header/header.test.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/src/components/header/header.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/src/components/main/main.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/src/components/main/main.test.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/src/components/main/main.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/src/components/page404/page404.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/src/components/page404/page404.test.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/src/components/page404/page404.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/src/components/search-bar/search-bar.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/src/components/search-bar/search-bar.test.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/src/components/search-bar/search-bar.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/src/data/img/4q2hz2m8hubgvijz8Ez0T2Os2Yv.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/src/data/img/6wxfWZxQcuv2QgxIQKj0eYTdKTv.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/src/data/img/AoWY1gkcNzabh229Icboa1Ff0BM.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/src/data/img/YxopfHpsCV1oF8CZaL4M3Eodqa.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/src/data/img/bT3c4TSOP8vBmMoXZRDPTII6eDa.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/src/data/img/dkokENeY5Ka30BFgWAqk14mbnGs.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/src/data/img/h8Rb9gBr48ODIwYUttZNYeMWeUU.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/src/data/img/hjS9mH8KvRiGHgjk6VUZH7OT0Ng.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/src/data/img/lPsD10PP4rgUGiGR4CCXA6iY0QQ.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/src/data/img/m6bUeV4mczG3z2YXXr5XDKPsQzv.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/src/data/img/msI5a9TPnepx47JUb2vl88hb80R.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/src/data/img/nkayOAUBUu4mMvyNf9iHSUiPjF1.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/src/data/img/nxxuWC32Y6TULj4VnVwMPUFLIpK.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/src/data/img/oBgWY00bEFeZ9N25wWVyuQddbAo.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/src/data/img/pgqgaUx1cJb5oZQQ5v0tNARCeBp.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/src/data/img/rEm96ib0sPiZBADNKBHKBv5bve9.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/src/data/img/vXHzO26mJaOt4VO7ZFiM6No5ScT.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/src/data/img/w6n1pu9thpCVHILejsuhKf3tNCV.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/src/data/img/xCEg6KowNISWvMh8GvPSxtdf9TO.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/src/data/img/z8CExJekGrEThbpMXAmCFvvgoJR.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/src/data/movies.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/src/index.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/src/index.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/src/interfaces.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/src/intex.test.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/src/logo.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/src/setupTests.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/tsconfig.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/yarn.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/forms/forms.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/forms/forms.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/forms/forms.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/forms/forms.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/interfaces.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/interfaces.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
