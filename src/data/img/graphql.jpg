@@ -1,0 +1,41 @@
+{
+  "data": {
+    "bands": [
+      {
+        "id": "62cb35f0994c661b803c7955",
+        "name": "Blink-182",
+        "origin": null,
+        "members": [],
+        "website": null,
+        "genres": null
+      },
+      {
+        "id": "62cb3686994c661b803c795f",
+        "name": "Offspring",
+        "origin": null,
+        "members": [],
+        "website": "http://offspring.com",
+        "genres": null
+      },
+      {
+        "id": "62cb6363994c661b803c796a",
+        "name": "The Offspring",
+        "origin": "Russia",
+        "members": [],
+        "website": "http://offspring-live.com",
+        "genres": null
+      },
+      {
+        "id": "62cb6630994c661b803c796e",
+        "name": "Linkin Park",
+        "origin": "USA",
+        "members": [],
+        "website": "http://lp.com",
+        "genres": null
+      }
+    ]
+  }
+}
+
+
+    "bands": ["62cb35f0994c661b803c7955", "62cb3686994c661b803c795f", "62cb6363994c661b803c796a"],

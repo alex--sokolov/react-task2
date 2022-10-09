@@ -67,10 +67,10 @@ export interface IForm {
   overview: string;
   country: string;
   releaseDate: string;
-  genre: Genre | null;
+  genre: Genre | undefined;
   isConfirmPolitics: boolean;
   adult: boolean;
-  logo: HTMLImageElement | undefined;
+  logo: string | undefined;
 }
 
 export type IDateTypeField = 'text' | 'date';
