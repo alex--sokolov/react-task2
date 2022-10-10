@@ -90,4 +90,5 @@ export interface IStateForms {
   errors: FieldError[];
   isLoading: boolean;
   submitted: boolean;
+  added: boolean;
 }

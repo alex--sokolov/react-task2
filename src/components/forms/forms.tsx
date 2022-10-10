@@ -40,6 +40,7 @@ class Forms extends Component {
     errors: [],
     isLoading: false,
     submitted: false,
+    added: false,
   };
   fileInput: HTMLInputElement | null = null;
 
@@ -303,8 +304,12 @@ class Forms extends Component {
         errors: [],
         isLoading: false,
         submitted: false,
+        added: true,
       };
     });
+    setTimeout(() => {
+      this.setState(() => ({ added: false }));
+    }, 2000);
   }
 
   getFieldsErrors(field: string): string[] | undefined {
@@ -324,7 +329,8 @@ class Forms extends Component {
     const showErrors = (errors: string[] | undefined): ReactNode =>
       errors ? errors.map((error: string, index: number) => <div key={index}>{error}</div>) : '';
     return (
-      <>
+      <section className="forms">
+        <div className={`notify ${this.state.added ? 'show' : ''}`}>Movie was added</div>
         <form
           id="form-add-movie"
           className="form-add-movie"
@@ -466,11 +472,8 @@ class Forms extends Component {
             <div></div>
           </div>
         </div>
-        <pre style={{ textAlign: 'left', margin: '0 auto', width: '200px' }}>
-          {JSON.stringify(this.state, null, 4)}
-        </pre>
         {this.state.cards.length > 0 ? <FormsCards cards={this.state.cards} /> : <></>}
-      </>
+      </section>
     );
   }
 }
