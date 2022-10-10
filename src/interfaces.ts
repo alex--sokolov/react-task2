@@ -54,6 +54,7 @@ export enum MovieStatus {
 }
 
 export enum Genre {
+  default = 'default',
   comedy = 'Comedy',
   horror = 'Horror',
   action = 'Action',
@@ -63,11 +64,12 @@ export enum Genre {
 }
 
 export interface IForm {
+  id: number;
   title: string;
   overview: string;
   country: string;
   releaseDate: string;
-  genre: Genre | undefined;
+  genre: Genre;
   isConfirmPolitics: boolean;
   adult: boolean;
   logo: string | undefined;
@@ -75,8 +77,17 @@ export interface IForm {
 
 export type IDateTypeField = 'text' | 'date';
 
+export interface FieldError {
+  field: string;
+  errors: string[];
+}
+
 export interface IStateForms {
   form: IForm;
+  cards: IForm[];
   dateType: IDateTypeField;
-  submit: boolean;
+  isFormChecked: boolean;
+  errors: FieldError[];
+  isLoading: boolean;
+  submitted: boolean;
 }

@@ -1,0 +1,63 @@
+.forms-card {
+  display: block;
+  box-sizing: border-box;
+  width: 50%;
+  margin: 40px 5px;
+  padding: 15px;
+  border-radius: 15px;
+  border: 1px solid #ccc;
+
+  .title {
+    font-size: 16px;
+    text-align: center;
+    height: 70px;
+  }
+
+  div {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    font-size: 14px;
+
+    .img {
+      text-align: center;
+      width: 100px;
+      height: 150px;
+
+      img {
+        border: 1px solid #ccc;
+      }
+    }
+
+    div {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+      gap: 5px;
+
+      div {
+        display: flex;
+        flex-direction: row;
+        text-align: left;
+
+        &:first-child {
+          margin-bottom: 10px;
+          color: rebeccapurple;
+          font-size: 16px;
+        }
+
+        span {
+          min-width: 80px;
+          font-size: 12px;
+        }
+
+        .overview {
+          margin-top: 10px;
+          font-style: italic;
+        }
+      }
+    }
+  }
+}
+

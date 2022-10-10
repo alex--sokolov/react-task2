@@ -1,0 +1,15 @@
+.added-movies {
+  border-top: 2px solid dodgerblue;
+
+  h1:first-child {
+    text-align: center;
+    text-transform: uppercase;
+    color: darkgoldenrod;
+    font-size: 2rem;
+  }
+
+  .forms-cards {
+    display: flex;
+  }
+}
+
