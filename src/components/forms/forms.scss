@@ -50,6 +50,13 @@ $shadow: .3rem .3rem .6rem #c8d0e7,
       }
     }
   }
+  .field-errors {
+    color: red;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: left;
+    transform: translateX(calc(50% + 8px));
+  }
 }
 
 .form__field-row {
@@ -63,7 +70,7 @@ $shadow: .3rem .3rem .6rem #c8d0e7,
     padding-right: 5px;
   }
 
-  input, select, option {
+  input, select, textarea, option {
     height: 20px;
     width: 200px;
     border: 2px solid #ccc;
@@ -77,6 +84,19 @@ $shadow: .3rem .3rem .6rem #c8d0e7,
       box-shadow: 2px 2px 4px -1px dodgerblue;
       outline: 0;
     }
+    &.error {
+      border: 2px solid red;
+    }
+  }
+
+  input[type="checkbox"] {
+    &.error {
+      outline: 2px solid red;
+    }
+  }
+
+  textarea {
+    height: 60px;
   }
 
   select {

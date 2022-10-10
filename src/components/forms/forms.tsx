@@ -1,4 +1,4 @@
-import React, { Component, FormEvent } from 'react';
+import React, { Component, FormEvent, ReactNode } from 'react';
 import './forms.scss';
 import { FieldError, Genre, IDateTypeField, IForm, IStateForms } from '../../interfaces';
 import FormsCards from 'components/forms-cards/forms-cards';
@@ -43,7 +43,9 @@ class Forms extends Component {
   };
   fileInput: HTMLInputElement | null = null;
 
-  handleInputChange(event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>): void {
+  handleInputChange(
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ): void {
     if (!this.state.isFormChecked) {
       this.setState(() => ({ isFormChecked: true }));
     }
@@ -85,6 +87,7 @@ class Forms extends Component {
       errors,
     }));
   }
+
   handleChangeImage(event: React.ChangeEvent<HTMLInputElement>): void {
     if (!this.state.isFormChecked) {
       this.setState(() => ({ isFormChecked: true }));
@@ -112,13 +115,13 @@ class Forms extends Component {
       img.onerror = () => {
         const error = {
           field: 'logo',
-          errors: ['Logo must be specified'],
+          errors: ['Uploaded incorrectly'],
         };
         errors.push(error);
         this.setState((prevState: IStateForms) => ({
           form: {
             ...prevState.form,
-            logo: undefined,
+            logo: null,
           },
           isLoading: false,
           errors,
@@ -128,10 +131,12 @@ class Forms extends Component {
     };
     fileReader.readAsDataURL(imageFile);
   }
+
   changeDateType(fieldType: IDateTypeField) {
     const dateType = fieldType;
     this.setState({ dateType });
   }
+
   validateTitle(value?: string): FieldError[] {
     const result = [];
     const errors = [];
@@ -153,6 +158,7 @@ class Forms extends Component {
     }
     return result;
   }
+
   validateOverview(value?: string): FieldError[] {
     const result = [];
     const errors = [];
@@ -174,6 +180,7 @@ class Forms extends Component {
     }
     return result;
   }
+
   validateCountry(value?: string): FieldError[] {
     const result = [];
     const errors = [];
@@ -198,6 +205,7 @@ class Forms extends Component {
     }
     return result;
   }
+
   validateDate(value?: string): FieldError[] {
     const result = [];
     const errors = [];
@@ -214,6 +222,7 @@ class Forms extends Component {
     }
     return result;
   }
+
   validateGenre(value?: string): FieldError[] {
     const result = [];
     const errors = [];
@@ -230,9 +239,10 @@ class Forms extends Component {
     }
     return result;
   }
+
   validateIsConfirmPolitics(value?: boolean): FieldError[] {
     const result = [];
-    const isConfirmPolitics = value || this.state.form.isConfirmPolitics;
+    const isConfirmPolitics = value !== undefined ? value : this.state.form.isConfirmPolitics;
     if (!isConfirmPolitics) {
       result.push({
         field: 'isConfirmPolitics',
@@ -241,16 +251,20 @@ class Forms extends Component {
     }
     return result;
   }
+
   validateLogo(): FieldError[] {
     const result = [];
     if (!this.state.form.logo) {
+      const errors =
+        this.state.form.logo === null ? ['Uploaded incorrectly'] : ['Logo must be specified'];
       result.push({
         field: 'logo',
-        errors: ['Logo must be specified'],
+        errors,
       });
     }
     return result;
   }
+
   validateForm(): FieldError[] {
     return [
       ...this.validateTitle(),
@@ -262,6 +276,7 @@ class Forms extends Component {
       ...this.validateLogo(),
     ];
   }
+
   handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const errors = this.validateForm();
@@ -274,6 +289,7 @@ class Forms extends Component {
       }));
     }
   }
+
   saveForm() {
     this.setState((prevState: IStateForms) => {
       const cards = [...prevState.cards];
@@ -290,7 +306,23 @@ class Forms extends Component {
       };
     });
   }
+
+  getFieldsErrors(field: string): string[] | undefined {
+    return (
+      this.state.errors.filter((error: FieldError) => error.field === field)[0]?.errors || undefined
+    );
+  }
+
   render(): React.ReactNode {
+    const errorsTitle = this.getFieldsErrors('title');
+    const errorsOverview = this.getFieldsErrors('overview');
+    const errorsCountry = this.getFieldsErrors('country');
+    const errorsReleaseDate = this.getFieldsErrors('releaseDate');
+    const errorsGenre = this.getFieldsErrors('genre');
+    const errorsIsConfirmPolitics = this.getFieldsErrors('isConfirmPolitics');
+    const errorsLogo = this.getFieldsErrors('logo');
+    const showErrors = (errors: string[] | undefined): ReactNode =>
+      errors ? errors.map((error: string, index: number) => <div key={index}>{error}</div>) : '';
     return (
       <>
         <form
@@ -301,38 +333,46 @@ class Forms extends Component {
           }}
         >
           <h1>Add new movie:</h1>
+          <div className="field-errors">{showErrors(errorsTitle)}</div>
           <div className="form__field-row">
             <label>Title:</label>
             <input
               type="text"
               name="title"
+              className={errorsTitle ? 'error' : ''}
               value={this.state.form.title}
               onChange={this.handleInputChange}
             />
           </div>
+          <div className="field-errors">{showErrors(errorsOverview)}</div>
           <div className="form__field-row">
             <label>Overview:</label>
-            <input
-              type="text"
+            <textarea
               name="overview"
+              className={errorsOverview ? 'error' : ''}
               value={this.state.form.overview}
               onChange={this.handleInputChange}
             />
           </div>
+          <div className="field-errors">{showErrors(errorsCountry)}</div>
           <div className="form__field-row">
             <label>Country:</label>
             <input
               type="text"
+              className={errorsCountry ? 'error' : ''}
               name="country"
               value={this.state.form.country}
               onChange={this.handleInputChange}
             />
           </div>
+          <div className="field-errors">{showErrors(errorsReleaseDate)}</div>
           <div className="form__field-row">
             <label>Release date:</label>
             <input
               type={this.state.dateType}
-              className={this.state.dateType === 'text' ? 'text' : 'date'}
+              className={
+                this.state.dateType === 'text' ? 'text' : 'date' && errorsReleaseDate ? 'error' : ''
+              }
               placeholder="MM/DD/YYYY"
               onFocus={() => this.changeDateType('date')}
               onBlur={() => this.changeDateType('text')}
@@ -343,9 +383,15 @@ class Forms extends Component {
               onChange={this.handleInputChange}
             />
           </div>
+          <div className="field-errors">{showErrors(errorsGenre)}</div>
           <div className="form__field-row">
             <label>Genre:</label>
-            <select name="genre" value={this.state.form.genre} onChange={this.handleInputChange}>
+            <select
+              name="genre"
+              className={errorsGenre ? 'error' : ''}
+              value={this.state.form.genre}
+              onChange={this.handleInputChange}
+            >
               <option value="default" disabled>
                 Choose an option
               </option>
@@ -357,12 +403,14 @@ class Forms extends Component {
               <option value={Genre.drama}>{Genre.drama}</option>
             </select>
           </div>
+          <div className="field-errors">{showErrors(errorsIsConfirmPolitics)}</div>
           <div className="form__field-row policy">
             <div>
               <input
                 type="checkbox"
                 id="isConfirmPolitics"
                 name="isConfirmPolitics"
+                className={errorsIsConfirmPolitics ? 'error' : ''}
                 checked={this.state.form.isConfirmPolitics}
                 value={this.state.form.isConfirmPolitics ? 'checked' : ''}
                 onChange={this.handleInputChange}
@@ -384,12 +432,14 @@ class Forms extends Component {
               <label htmlFor="adult" />
             </div>
           </div>
+          <div className="field-errors">{showErrors(errorsLogo)}</div>
           <div className="form__field-row file">
             <label>Load picture:</label>
             <input
               type="file"
               name="logo"
               accept="image/*"
+              className={errorsLogo ? 'error' : ''}
               style={{ display: 'none' }}
               onChange={this.handleChangeImage}
               ref={(fileInput) => (this.fileInput = fileInput)}
@@ -419,7 +469,7 @@ class Forms extends Component {
         <pre style={{ textAlign: 'left', margin: '0 auto', width: '200px' }}>
           {JSON.stringify(this.state, null, 4)}
         </pre>
-        <FormsCards cards={this.state.cards} />
+        {this.state.cards.length > 0 ? <FormsCards cards={this.state.cards} /> : <></>}
       </>
     );
   }
