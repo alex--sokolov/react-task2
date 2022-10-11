@@ -1,6 +1,13 @@
 import React, { Component, FormEvent, ReactNode } from 'react';
 import './forms.scss';
-import { FieldError, Genre, IDateTypeField, IForm, IStateForms } from '../../interfaces';
+import {
+  FieldError,
+  FormFields,
+  Genre,
+  IDateTypeField,
+  IForm,
+  IStateForms,
+} from '../../interfaces';
 import FormsCards from 'components/forms-cards/forms-cards';
 import {
   isValidDate,
@@ -9,6 +16,7 @@ import {
   isValidMin,
   isValidOnlyEnglishSymbols,
 } from '../../utils/validate';
+import Spinner from 'components/spinner/spinner';
 
 class Forms extends Component {
   constructor(props: Record<string, unknown>) {
@@ -58,22 +66,22 @@ class Forms extends Component {
     if (this.state.submitted) {
       errors = [...this.state.errors].filter((error: FieldError) => error.field !== name);
       switch (name) {
-        case 'title':
+        case FormFields.title:
           errors = [...errors, ...this.validateTitle(value as string)];
           break;
-        case 'overview':
+        case FormFields.overview:
           errors = [...errors, ...this.validateOverview(value as string)];
           break;
-        case 'country':
+        case FormFields.country:
           errors = [...errors, ...this.validateCountry(value as string)];
           break;
-        case 'releaseDate':
+        case FormFields.releaseDate:
           errors = [...errors, ...this.validateDate(value as string)];
           break;
-        case 'genre':
+        case FormFields.genre:
           errors = [...errors, ...this.validateGenre(value as string)];
           break;
-        case 'isConfirmPolitics':
+        case FormFields.isConfirmPolitics:
           errors = [...errors, ...this.validateIsConfirmPolitics(value as boolean)];
           break;
         default:
@@ -151,9 +159,9 @@ class Forms extends Component {
       errors.push(`Must be less than ${maxLength} Symbols`);
     }
 
-    if (errors.length > 0) {
+    if (errors.length) {
       result.push({
-        field: 'title',
+        field: FormFields.title,
         errors,
       });
     }
@@ -173,9 +181,9 @@ class Forms extends Component {
       errors.push(`Must be less than ${maxLength} Symbols`);
     }
 
-    if (errors.length > 0) {
+    if (errors.length) {
       result.push({
-        field: 'overview',
+        field: FormFields.overview,
         errors,
       });
     }
@@ -198,9 +206,9 @@ class Forms extends Component {
       errors.push(`Must contain only english symbols`);
     }
 
-    if (errors.length > 0) {
+    if (errors.length) {
       result.push({
-        field: 'country',
+        field: FormFields.country,
         errors,
       });
     }
@@ -215,9 +223,9 @@ class Forms extends Component {
       errors.push(`Must be between ${this.minDate} and ${this.maxDate} date`);
     }
 
-    if (errors.length > 0) {
+    if (errors.length) {
       result.push({
-        field: 'releaseDate',
+        field: FormFields.releaseDate,
         errors,
       });
     }
@@ -232,7 +240,7 @@ class Forms extends Component {
       errors.push(`Genre is not valid`);
     }
 
-    if (errors.length > 0) {
+    if (errors.length) {
       result.push({
         field: 'genre',
         errors,
@@ -246,7 +254,7 @@ class Forms extends Component {
     const isConfirmPolitics = value !== undefined ? value : this.state.form.isConfirmPolitics;
     if (!isConfirmPolitics) {
       result.push({
-        field: 'isConfirmPolitics',
+        field: FormFields.isConfirmPolitics,
         errors: ['Movie must be censored!'],
       });
     }
@@ -259,7 +267,7 @@ class Forms extends Component {
       const errors =
         this.state.form.logo === null ? ['Uploaded incorrectly'] : ['Logo must be specified'];
       result.push({
-        field: 'logo',
+        field: FormFields.logo,
         errors,
       });
     }
@@ -280,13 +288,19 @@ class Forms extends Component {
 
   handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    console.log('loading');
+    this.setState(() => ({
+      isLoading: true,
+    }));
+
     const errors = this.validateForm();
-    if (errors.length === 0) {
+    if (!errors.length) {
       this.saveForm();
     } else {
       this.setState(() => ({
         errors,
         submitted: true,
+        isLoading: false,
       }));
     }
   }
@@ -319,13 +333,13 @@ class Forms extends Component {
   }
 
   render(): React.ReactNode {
-    const errorsTitle = this.getFieldsErrors('title');
-    const errorsOverview = this.getFieldsErrors('overview');
-    const errorsCountry = this.getFieldsErrors('country');
-    const errorsReleaseDate = this.getFieldsErrors('releaseDate');
-    const errorsGenre = this.getFieldsErrors('genre');
-    const errorsIsConfirmPolitics = this.getFieldsErrors('isConfirmPolitics');
-    const errorsLogo = this.getFieldsErrors('logo');
+    const errorsTitle = this.getFieldsErrors(FormFields.title);
+    const errorsOverview = this.getFieldsErrors(FormFields.overview);
+    const errorsCountry = this.getFieldsErrors(FormFields.country);
+    const errorsReleaseDate = this.getFieldsErrors(FormFields.releaseDate);
+    const errorsGenre = this.getFieldsErrors(FormFields.genre);
+    const errorsIsConfirmPolitics = this.getFieldsErrors(FormFields.isConfirmPolitics);
+    const errorsLogo = this.getFieldsErrors(FormFields.logo);
     const showErrors = (errors: string[] | undefined): ReactNode =>
       errors ? errors.map((error: string, index: number) => <div key={index}>{error}</div>) : '';
     return (
@@ -344,7 +358,7 @@ class Forms extends Component {
             <label>Title:</label>
             <input
               type="text"
-              name="title"
+              name={FormFields.title}
               className={errorsTitle ? 'error' : ''}
               value={this.state.form.title}
               onChange={this.handleInputChange}
@@ -354,7 +368,7 @@ class Forms extends Component {
           <div className="form__field-row">
             <label>Overview:</label>
             <textarea
-              name="overview"
+              name={FormFields.overview}
               className={errorsOverview ? 'error' : ''}
               value={this.state.form.overview}
               onChange={this.handleInputChange}
@@ -366,7 +380,7 @@ class Forms extends Component {
             <input
               type="text"
               className={errorsCountry ? 'error' : ''}
-              name="country"
+              name={FormFields.country}
               value={this.state.form.country}
               onChange={this.handleInputChange}
             />
@@ -384,7 +398,7 @@ class Forms extends Component {
               onBlur={() => this.changeDateType('text')}
               min={this.minDate}
               max={this.maxDate}
-              name="releaseDate"
+              name={FormFields.releaseDate}
               value={this.state.form.releaseDate}
               onChange={this.handleInputChange}
             />
@@ -393,7 +407,7 @@ class Forms extends Component {
           <div className="form__field-row">
             <label>Genre:</label>
             <select
-              name="genre"
+              name={FormFields.genre}
               className={errorsGenre ? 'error' : ''}
               value={this.state.form.genre}
               onChange={this.handleInputChange}
@@ -414,28 +428,27 @@ class Forms extends Component {
             <div>
               <input
                 type="checkbox"
-                id="isConfirmPolitics"
-                name="isConfirmPolitics"
+                id={FormFields.isConfirmPolitics}
+                name={FormFields.isConfirmPolitics}
                 className={errorsIsConfirmPolitics ? 'error' : ''}
                 checked={this.state.form.isConfirmPolitics}
                 value={this.state.form.isConfirmPolitics ? 'checked' : ''}
                 onChange={this.handleInputChange}
               />
             </div>
-            <label htmlFor="isConfirmPolitics">This movie is censored</label>
+            <label htmlFor={FormFields.isConfirmPolitics}>This movie is censored</label>
           </div>
           <div className="switcher status">
             <div>Adult:</div>
             <div className="switch">
               <input
                 type="checkbox"
-                name="adult"
-                id="adult"
+                id={FormFields.adult}
+                name={FormFields.adult}
                 checked={this.state.form.adult}
-                value={this.state.form.adult ? 'adult' : 'regular'}
                 onChange={this.handleInputChange}
               />
-              <label htmlFor="adult" />
+              <label htmlFor={FormFields.adult} />
             </div>
           </div>
           <div className="field-errors">{showErrors(errorsLogo)}</div>
@@ -443,7 +456,7 @@ class Forms extends Component {
             <label>Load picture:</label>
             <input
               type="file"
-              name="logo"
+              name={FormFields.logo}
               accept="image/*"
               className={errorsLogo ? 'error' : ''}
               style={{ display: 'none' }}
@@ -454,25 +467,12 @@ class Forms extends Component {
               Pick file
             </div>
           </div>
-          <input
-            type="submit"
-            value="Submit"
-            disabled={!this.state.isFormChecked || this.state.errors.length > 0}
-          />
+          <input type="submit" disabled={!this.state.isFormChecked || !!this.state.errors.length} />
         </form>
         <div className="spinner" style={{ position: 'absolute' }}>
-          <div className={`lds-roller ${this.state.isLoading ? '' : 'hidden'}`}>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-          </div>
+          <Spinner isLoading={this.state.isLoading} />
         </div>
-        {this.state.cards.length > 0 ? <FormsCards cards={this.state.cards} /> : <></>}
+        {this.state.cards.length ? <FormsCards cards={this.state.cards} /> : <></>}
       </section>
     );
   }

@@ -53,6 +53,11 @@ export enum MovieStatus {
   waiting = 'waiting for release',
 }
 
+export enum Adult {
+  true = 'Hardcore',
+  false = 'Regular',
+}
+
 export enum Genre {
   default = 'default',
   comedy = 'Comedy',
@@ -61,6 +66,17 @@ export enum Genre {
   crime = 'Crime',
   thriller = 'Thriller',
   drama = 'Drama',
+}
+
+export enum FormFields {
+  title = 'title',
+  overview = 'overview',
+  country = 'country',
+  releaseDate = 'releaseDate',
+  genre = 'genre',
+  isConfirmPolitics = 'isConfirmPolitics',
+  adult = 'adult',
+  logo = 'logo',
 }
 
 export interface IForm {

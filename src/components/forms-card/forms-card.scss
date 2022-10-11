@@ -1,9 +1,10 @@
 .forms-card {
   display: block;
   box-sizing: border-box;
+  background: antiquewhite;
   width: 50%;
   margin: 40px 5px;
-  padding: 15px;
+  padding: 15px 15px 50px 15px;
   border-radius: 15px;
   border: 1px solid #ccc;
 
@@ -26,6 +27,8 @@
 
       img {
         border: 1px solid #ccc;
+        max-width: 100px;
+        max-height: 150px;
       }
     }
 
@@ -40,6 +43,7 @@
         display: flex;
         flex-direction: row;
         text-align: left;
+        text-transform: capitalize;
 
         &:first-child {
           margin-bottom: 10px;
