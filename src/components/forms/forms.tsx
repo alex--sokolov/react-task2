@@ -79,7 +79,7 @@ class Forms extends Component {
           errors = [...errors, ...this.validateDate(value as string)];
           break;
         case FormFields.genre:
-          errors = [...errors, ...this.validateGenre(value as string)];
+          errors = [...errors, ...this.validateGenre(value as Genre)];
           break;
         case FormFields.isConfirmPolitics:
           errors = [...errors, ...this.validateIsConfirmPolitics(value as boolean)];
@@ -232,7 +232,7 @@ class Forms extends Component {
     return result;
   }
 
-  validateGenre(value?: string): FieldError[] {
+  validateGenre(value?: Genre): FieldError[] {
     const result = [];
     const errors = [];
     const genre = value || this.state.form.genre;
@@ -362,6 +362,7 @@ class Forms extends Component {
               className={errorsTitle ? 'error' : ''}
               value={this.state.form.title}
               onChange={this.handleInputChange}
+              data-testid="form-input-title"
             />
           </div>
           <div className="field-errors">{showErrors(errorsOverview)}</div>

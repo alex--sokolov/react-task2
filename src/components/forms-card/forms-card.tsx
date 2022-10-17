@@ -31,9 +31,6 @@ export default class FormsCard extends Component<Readonly<{ card: IForm }>, unkn
             <div className={FormFields.genre}>
               <span>{FormFields.genre}:</span> {card.genre}
             </div>
-            <div className="censored">
-              <span>Censored:</span> {card.isConfirmPolitics ? 'Yes' : 'No'}
-            </div>
             <div className={FormFields.adult}>
               <span>{FormFields.adult}:</span> {card.adult ? Adult.true : Adult.false}
             </div>
