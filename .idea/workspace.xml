@@ -5,7 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7665eb75-58a6-4ab1-9f31-f0e58e6f0ff3" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/utils/readFileAsDataUrl.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/forms/forms.test.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/forms/forms.test.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/forms/forms.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/forms/forms.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/validate.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/validate.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,7 +43,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/.." />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="list.type.of.created.stylesheet" value="SCSS" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
@@ -70,6 +73,7 @@
       <workItem from="1665043277740" duration="13248000" />
       <workItem from="1665329799747" duration="719000" />
       <workItem from="1665382555574" duration="50000" />
+      <workItem from="1666164642704" duration="22000" />
     </task>
     <servers />
   </component>

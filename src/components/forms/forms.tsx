@@ -17,6 +17,7 @@ import {
   isValidOnlyEnglishSymbols,
 } from '../../utils/validate';
 import Spinner from 'components/spinner/spinner';
+import { readFileAsDataURL } from '../../utils/readFileAsDataUrl';
 
 class Forms extends Component {
   constructor(props: Record<string, unknown>) {
@@ -84,8 +85,6 @@ class Forms extends Component {
         case FormFields.isConfirmPolitics:
           errors = [...errors, ...this.validateIsConfirmPolitics(value as boolean)];
           break;
-        default:
-          break;
       }
     }
     this.setState((prevState: IStateForms) => ({
@@ -97,7 +96,7 @@ class Forms extends Component {
     }));
   }
 
-  handleChangeImage(event: React.ChangeEvent<HTMLInputElement>): void {
+  async handleChangeImage(event: React.ChangeEvent<HTMLInputElement>): Promise<void> {
     if (!this.state.isFormChecked) {
       this.setState(() => ({ isFormChecked: true }));
     }
@@ -105,40 +104,20 @@ class Forms extends Component {
       isLoading: true,
     }));
     const files = event.target.files as FileList;
-    const imageFile = files[0];
-    const fileReader = new FileReader();
-    fileReader.onload = (e) => {
-      const result = e.target?.result;
-      const img = new Image();
-      const errors = [...this.state.errors].filter((error: FieldError) => error.field !== 'logo');
-      img.onload = () => {
-        this.setState((prevState: IStateForms) => ({
-          form: {
-            ...prevState.form,
-            logo: result,
-          },
-          isLoading: false,
-          errors,
-        }));
-      };
-      img.onerror = () => {
-        const error = {
-          field: 'logo',
-          errors: ['Uploaded incorrectly'],
-        };
-        errors.push(error);
-        this.setState((prevState: IStateForms) => ({
-          form: {
-            ...prevState.form,
-            logo: null,
-          },
-          isLoading: false,
-          errors,
-        }));
-      };
-      img.src = result as string;
-    };
-    fileReader.readAsDataURL(imageFile);
+    const imageFile = files[0] as Blob;
+    const errors = [...this.state.errors].filter((error: FieldError) => error.field !== 'logo');
+    const logo = await readFileAsDataURL(imageFile);
+    if (logo && typeof logo === 'object') {
+      errors.push(logo as FieldError);
+    }
+    this.setState((prevState: IStateForms) => ({
+      form: {
+        ...prevState.form,
+        logo,
+      },
+      isLoading: false,
+      errors,
+    }));
   }
 
   changeDateType(fieldType: IDateTypeField) {
@@ -153,10 +132,10 @@ class Forms extends Component {
     const minLength = 3;
     const maxLength = 30;
     if (!isValidMin(title, minLength)) {
-      errors.push(`Must be more than ${minLength} Symbols`);
+      errors.push(`Must be more than ${minLength} symbols`);
     }
     if (!isValidMax(title, maxLength)) {
-      errors.push(`Must be less than ${maxLength} Symbols`);
+      errors.push(`Must be less than ${maxLength} symbols`);
     }
 
     if (errors.length) {
@@ -175,10 +154,10 @@ class Forms extends Component {
     const minLength = 3;
     const maxLength = 100;
     if (!isValidMin(overview, minLength)) {
-      errors.push(`Must be more than ${minLength} Symbols`);
+      errors.push(`Must be more than ${minLength} symbols`);
     }
     if (!isValidMax(overview, maxLength)) {
-      errors.push(`Must be less than ${maxLength} Symbols`);
+      errors.push(`Must be less than ${maxLength} symbols`);
     }
 
     if (errors.length) {
@@ -288,7 +267,7 @@ class Forms extends Component {
 
   handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    console.log('loading');
+    // console.log('loading');
     this.setState(() => ({
       isLoading: true,
     }));
@@ -362,7 +341,7 @@ class Forms extends Component {
               className={errorsTitle ? 'error' : ''}
               value={this.state.form.title}
               onChange={this.handleInputChange}
-              data-testid="form-input-title"
+              data-testid="form-title"
             />
           </div>
           <div className="field-errors">{showErrors(errorsOverview)}</div>
@@ -373,6 +352,7 @@ class Forms extends Component {
               className={errorsOverview ? 'error' : ''}
               value={this.state.form.overview}
               onChange={this.handleInputChange}
+              data-testid="form-overview"
             />
           </div>
           <div className="field-errors">{showErrors(errorsCountry)}</div>
@@ -384,6 +364,7 @@ class Forms extends Component {
               name={FormFields.country}
               value={this.state.form.country}
               onChange={this.handleInputChange}
+              data-testid="form-country"
             />
           </div>
           <div className="field-errors">{showErrors(errorsReleaseDate)}</div>
@@ -402,6 +383,7 @@ class Forms extends Component {
               name={FormFields.releaseDate}
               value={this.state.form.releaseDate}
               onChange={this.handleInputChange}
+              data-testid="form-date"
             />
           </div>
           <div className="field-errors">{showErrors(errorsGenre)}</div>
@@ -463,12 +445,17 @@ class Forms extends Component {
               style={{ display: 'none' }}
               onChange={this.handleChangeImage}
               ref={(fileInput) => (this.fileInput = fileInput)}
+              data-testid="form-upload"
             />
             <div className="btn-add-file" onClick={() => this.fileInput?.click()}>
               Pick file
             </div>
           </div>
-          <input type="submit" disabled={!this.state.isFormChecked || !!this.state.errors.length} />
+          <input
+            type="submit"
+            disabled={!this.state.isFormChecked || !!this.state.errors.length}
+            data-testid="form-submit-btn"
+          />
         </form>
         <div className="spinner" style={{ position: 'absolute' }}>
           <Spinner isLoading={this.state.isLoading} />
