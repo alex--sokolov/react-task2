@@ -12,6 +12,13 @@ class SearchBar extends Component {
     });
   };
 
+  handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      console.log('searchValue: ', this.state.searchValue);
+      console.log('enter press here!!! ');
+    }
+  };
+
   componentDidMount() {
     const searchValue = localStorage.getItem('searchValue');
     if (searchValue) {
@@ -38,8 +45,9 @@ class SearchBar extends Component {
           onChange={(e) => {
             this.onSearchChange(e);
           }}
+          onKeyPress={(e) => this.handleKeyPress(e)}
         />
-        <label htmlFor="search" className="search-icon" data-testid="label-search"></label>
+        <label htmlFor="search" className="search-icon" data-testid="label-search" />
       </section>
     );
   }

@@ -9,6 +9,9 @@ class MainPage extends Component {
       <div data-testid="main-page">
         MainPage
         <SearchBar />
+        <div>{process.env.REACT_APP_NOT_API_URL}</div>
+        <div>{process.env.REACT_APP_NOT_API_EMAIL}</div>
+        <div>{process.env.REACT_APP_NOT_API_TOKEN}</div>
         <CardsList />
       </div>
     );
