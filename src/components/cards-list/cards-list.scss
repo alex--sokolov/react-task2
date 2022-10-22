@@ -1,3 +1,20 @@
 .cards-list {
   margin: 60px auto;
 }
+.movies-static-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  margin-left: 50px;
+  gap: 20px;
+}
+
+.movies-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  flex-direction: column;
+  margin: 0 auto;
+  max-width: 300px;
+  gap: 15px;
+}

@@ -21,7 +21,7 @@ interface ISpoken_language {
   name: string;
 }
 
-export interface IMovie {
+export interface IMovieStatic {
   adult: boolean;
   backdrop_path: string;
   budget: number;
@@ -108,3 +108,20 @@ export interface IStateForms {
   submitted: boolean;
   added: boolean;
 }
+
+export interface IMovie {
+  academyAwardNominations: number;
+  academyAwardWins: number;
+  boxOfficeRevenueInMillions: number;
+  budgetInMillions: number;
+  name: string;
+  rottenTomatoesScore: number;
+  runtimeInMinutes: number;
+  _id: string;
+}
+
+export type IState = {
+  searchValue: string;
+  movies: IMovie[];
+  isLoading: boolean;
+};

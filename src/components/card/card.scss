@@ -1,40 +1,19 @@
-.movies-list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  margin-left:50px;
-  gap:20px;
-  .movie {
-    width: 200px;
-    height: 360px;
-    text-align: left;
-    padding-left: 10px;
-    border: 1px solid #222;
-    box-shadow: 0 0 5px 1px #000;
-    .title {
-      font-size: 16px;
-      text-align: center;
-      height: 70px;
-    }
-    .img {
-      text-align: center;
-      img {
-        border-radius: 50%;
-      }
-    }
-    .budget {
-      margin-top: 10px;
-      span {
-        font-size: 12px;
-      }
-    }
-    .popularity {
-      span {
-        font-size: 12px;
-      }
-    }
-    .tagline {
-      font-size: 14px;
-    }
+.movie {
+  text-align: left;
+  color: #444;
+  padding: 5px 10px;
+  border: 1px solid crimson;
+  box-shadow: 0 0 5px 1px crimson;
+  transition: .2s;
+  &:hover {
+    color: #ddd;
+    background-color: crimson;
+    cursor: pointer;
+    transition: .2s;
+  }
+
+  .title {
+    margin: 0;
+    padding: 0;
   }
 }
