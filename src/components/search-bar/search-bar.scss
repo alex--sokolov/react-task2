@@ -10,6 +10,9 @@
     border-radius: 20px;
     border: 0;
     outline: 1px solid #aaa;
+    &:focus {
+      outline: 1px solid red;
+    }
   }
   .search-icon {
     content: 'dsfdsfd';
@@ -19,13 +22,19 @@
     position: absolute;
     margin-top: -30px;
     margin-left: 10px;
-    background-color: red;
+    background-color: #ccc;
     mask-image: url('../../assets/img/svg/search-icon.svg');
     mask-size: contain;
     mask-repeat: no-repeat;
     -webkit-mask-image: url('../../assets/img/svg/search-icon.svg');
     -webkit-mask-size: contain;
     -webkit-mask-repeat: no-repeat;
+    cursor: pointer;
+    transition: .5s;
+    &:hover {
+      background-color: red;
+      transition: .5s;
+    }
   }
 }
 

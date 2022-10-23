@@ -7,6 +7,8 @@ import {
   IDateTypeField,
   IForm,
   IStateForms,
+  NotifyType,
+  NotifyMessage,
 } from '../../interfaces';
 import FormsCards from 'components/forms-cards/forms-cards';
 import {
@@ -18,6 +20,7 @@ import {
 } from '../../utils/validate';
 import Spinner from 'components/spinner/spinner';
 import { readFileAsDataURL } from '../../utils/readFileAsDataUrl';
+import Notify from '../notify/notify';
 
 class Forms extends Component {
   constructor(props: Record<string, unknown>) {
@@ -323,7 +326,11 @@ class Forms extends Component {
       errors ? errors.map((error: string, index: number) => <div key={index}>{error}</div>) : '';
     return (
       <section className="forms">
-        <div className={`notify ${this.state.added ? 'show' : ''}`}>Movie was added</div>
+        <Notify
+          isShow={this.state.added}
+          message={NotifyMessage.MOVIE_ADDED}
+          type={NotifyType.OK}
+        />
         <form
           id="form-add-movie"
           className="form-add-movie"

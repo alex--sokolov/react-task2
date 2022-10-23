@@ -120,8 +120,25 @@ export interface IMovie {
   _id: string;
 }
 
+export interface IFetchError {
+  errorCode: number;
+  errorMessage: string;
+}
+
 export type IState = {
   searchValue: string;
   movies: IMovie[];
   isLoading: boolean;
+  fetchError: IFetchError | null;
+  isShowError: boolean;
 };
+
+export enum NotifyType {
+  WARN = 'warn',
+  ERROR = 'error',
+  OK = 'ok',
+}
+
+export enum NotifyMessage {
+  MOVIE_ADDED = 'Movie was added',
+}

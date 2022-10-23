@@ -5,8 +5,8 @@ import { IMovie } from '../../interfaces';
 
 describe('CardsList', () => {
   it('renders CardsList component', () => {
-    const movies:IMovie[] = [];
-    render(<CardsList movies={movies} isLoading={true}/>);
+    const movies: IMovie[] = [];
+    render(<CardsList movies={movies} isLoading={true} fetchError={null} isShowError={false} />);
     expect(screen.getByTestId('cars-list')).toBeInTheDocument();
   });
 });

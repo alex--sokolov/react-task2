@@ -1,10 +1,11 @@
 import React, { ChangeEvent, Component } from 'react';
 import './search-bar.scss';
-import { IState } from '../../interfaces';
+import { IFetchError, IState } from '../../interfaces';
+import { getMoviesBySearch } from '../../utils/api';
 
 class SearchBar extends Component<
   Readonly<{
-    changeMainState: React.Dispatch<React.SetStateAction<Pick<IState, 'movies' | 'isLoading'>>>;
+    changeMainState: React.Dispatch<React.SetStateAction<Omit<IState, 'searchValue'>>>;
   }>,
   unknown
 > {
@@ -18,42 +19,50 @@ class SearchBar extends Component<
     });
   };
 
-  getMoviesBySearch = async (search?: string) => {
-    const url = search
-      ? `${process.env.REACT_APP_API_URL}?name=/${search}/i`
-      : `${process.env.REACT_APP_API_URL}`;
-    try {
-      let data = [];
-      const response = await fetch(url, {
-        headers: new Headers({
-          Accept: 'application/json',
-          Authorization: `Bearer ${process.env.REACT_APP_API_TOKEN}`,
-        }),
-      });
-      console.log('response.status', response.status);
-      console.log('response.ok', response.ok);
-      console.log('response', response);
-      if (response.ok) {
-        console.log('response.type', response.type);
-        data = (await response.json()).docs;
-        console.log('data', data);
-        this.props.changeMainState({
+  getAPIMovies = async (search: string): Promise<void> => {
+    const data = await getMoviesBySearch(search);
+    if (Array.isArray(data)) {
+      this.props.changeMainState((prevState) => {
+        console.log(prevState);
+        return {
+          ...prevState,
           movies: data,
           isLoading: false,
-        });
-      } else {
-        if (response.status === 401) {
-          console.log('Not authorized');
-        }
-      }
-    } catch (e) {
-      console.log('Error: ', e);
+        };
+      });
+      // this.props.changeMainState((prevState) => ({
+      //   ...prevState,
+      //   movies: data,
+      //   isLoading: false,
+      // }));
+    } else {
+      console.log('Error: ', data);
+      this.props.changeMainState((prevState) => ({
+        ...prevState,
+        isLoading: false,
+        fetchError: data as IFetchError,
+        isShowError: true,
+      }));
+
+      setTimeout(() => {
+        this.props.changeMainState((prevState) => ({
+          ...prevState,
+          isShowError: false,
+        }));
+      }, 2000);
+
+      setTimeout(() => {
+        this.props.changeMainState((prevState) => ({
+          ...prevState,
+          fetchError: null,
+        }));
+      }, 2500);
     }
   };
 
   handleKeyPress = async (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
-      return await this.getMoviesBySearch(this.state.searchValue);
+      await this.getAPIMovies(this.state.searchValue);
     }
   };
 
@@ -61,7 +70,7 @@ class SearchBar extends Component<
     const searchValue = localStorage.getItem('searchValue');
     const search = searchValue ? JSON.parse(searchValue) : null;
     if (search) {
-      await this.getMoviesBySearch(search);
+      await this.getAPIMovies(search);
       this.setState({
         searchValue: search,
       });
@@ -70,6 +79,8 @@ class SearchBar extends Component<
         this.props.changeMainState({
           movies: [],
           isLoading: false,
+          fetchError: null,
+          isShowError: false,
         });
       }, 500);
     }
@@ -94,7 +105,12 @@ class SearchBar extends Component<
           }}
           onKeyPress={(e) => this.handleKeyPress(e)}
         />
-        <label htmlFor="search" className="search-icon" data-testid="label-search" />
+        <label
+          htmlFor="search"
+          className="search-icon"
+          data-testid="label-search"
+          onClick={async () => await this.getAPIMovies(this.state.searchValue)}
+        />
       </section>
     );
   }
