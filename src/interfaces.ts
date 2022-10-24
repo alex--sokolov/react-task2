@@ -131,6 +131,8 @@ export type IState = {
   isLoading: boolean;
   fetchError: IFetchError | null;
   isShowError: boolean;
+  modalOpened: string | null;
+  isModalClosing: boolean;
 };
 
 export enum NotifyType {
@@ -141,4 +143,9 @@ export enum NotifyType {
 
 export enum NotifyMessage {
   MOVIE_ADDED = 'Movie was added',
+}
+
+export interface IStateDownload {
+  isDownloading: boolean;
+  downloaded: boolean;
 }

@@ -12,13 +12,8 @@ export const getMoviesBySearch = async (search?: string): Promise<IMovie[] | unk
         Authorization: `Bearer ${process.env.REACT_APP_API_TOKEN}`,
       }),
     });
-    console.log('response.status', response.status);
-    console.log('response.ok', response.ok);
-    console.log('response', response);
     if (response.ok) {
-      console.log('response.type', response.type);
       data = (await response.json()).docs;
-      console.log('data', data);
       return data;
     } else {
       return {
@@ -28,6 +23,5 @@ export const getMoviesBySearch = async (search?: string): Promise<IMovie[] | unk
     }
   } catch (error: unknown) {
     console.log('Error: ', error);
-    return error;
   }
 };

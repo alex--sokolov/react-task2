@@ -13,12 +13,14 @@ export default class CardsList extends Component<
     isLoading: boolean;
     fetchError: IFetchError | null;
     isShowError: boolean;
+    toggleOverlay: (modalId: string | null) => void;
+    modalOpened: string | null;
+    isModalClosing: boolean;
   }>,
   unknown
 > {
   render(): React.ReactNode {
     const { movies, isLoading, fetchError, isShowError } = this.props;
-    console.log('movies', movies);
     const listTitle =
       movies.length > 0
         ? 'Movie-list from "The Lord of the Rings" API'
@@ -26,7 +28,15 @@ export default class CardsList extends Component<
     const movieList =
       movies.length > 0
         ? movies.map((movie: IMovie) => {
-            return <Card movie={movie} key={movie._id} />;
+            return (
+              <Card
+                movie={movie}
+                key={movie._id}
+                toggleOverlay={this.props.toggleOverlay}
+                modalOpened={this.props.modalOpened}
+                isModalClosing={this.props.isModalClosing}
+              />
+            );
           })
         : moviesStatic.map((movie: IMovieStatic) => {
             return <CardStatic movie={movie} key={movie.id} />;

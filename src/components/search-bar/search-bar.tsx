@@ -23,20 +23,13 @@ class SearchBar extends Component<
     const data = await getMoviesBySearch(search);
     if (Array.isArray(data)) {
       this.props.changeMainState((prevState) => {
-        console.log(prevState);
         return {
           ...prevState,
           movies: data,
           isLoading: false,
         };
       });
-      // this.props.changeMainState((prevState) => ({
-      //   ...prevState,
-      //   movies: data,
-      //   isLoading: false,
-      // }));
     } else {
-      console.log('Error: ', data);
       this.props.changeMainState((prevState) => ({
         ...prevState,
         isLoading: false,
@@ -76,12 +69,13 @@ class SearchBar extends Component<
       });
     } else {
       setTimeout(() => {
-        this.props.changeMainState({
+        this.props.changeMainState((prevState) => ({
+          ...prevState,
           movies: [],
           isLoading: false,
           fetchError: null,
           isShowError: false,
-        });
+        }));
       }, 500);
     }
   }
