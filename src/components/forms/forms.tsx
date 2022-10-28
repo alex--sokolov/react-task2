@@ -247,7 +247,7 @@ class Forms extends Component {
     const result = [];
     if (!this.state.form.logo) {
       const errors = ['Logo must be specified'];
-        // this.state.form.logo === null ? ['Uploaded incorrectly'] : ['Logo must be specified'];
+      // this.state.form.logo === null ? ['Uploaded incorrectly'] : ['Logo must be specified'];
       result.push({
         field: FormFields.logo,
         errors,

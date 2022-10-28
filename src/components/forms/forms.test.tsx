@@ -6,14 +6,13 @@ import userEvent from '@testing-library/user-event/dist';
 import { act } from 'react-dom/test-utils';
 
 describe('Forms', () => {
-  const originalError = console.error.bind(console.error)
+  const originalError = console.error.bind(console.error);
   beforeAll(() => {
-    console.error = (msg) =>
-      !msg.toString().includes('act') && originalError(msg)
-  })
+    console.error = (msg) => !msg.toString().includes('act') && originalError(msg);
+  });
   afterAll(() => {
-    console.error = originalError
-  })
+    console.error = originalError;
+  });
 
   beforeEach(() => {
     render(<Forms />);
@@ -29,7 +28,7 @@ describe('Forms', () => {
   });
 
   it('upload logo', async () => {
-    const file = new File([new ArrayBuffer(1)], 'file.jpg', {type: 'image/png'});
+    const file = new File([new ArrayBuffer(1)], 'file.jpg', { type: 'image/png' });
     const inputFile = screen.getByTestId('form-upload') as HTMLInputElement;
     const btn = screen.getByTestId('form-submit-btn');
     expect(btn).toBeDisabled();
@@ -48,13 +47,15 @@ describe('Forms', () => {
     userEvent.type(title, 'Just too much symbols in title!');
     userEvent.click(btn);
     expect(screen.queryAllByText(/must/i)[0].textContent).toEqual('Must be less than 30 symbols');
-    userEvent.type(overview, 'Just too much symbols in overview - ' +
-      'too much symbols in overview too much symbols in overview too much symbols in overview !');
+    userEvent.type(
+      overview,
+      'Just too much symbols in overview - ' +
+        'too much symbols in overview too much symbols in overview too much symbols in overview !'
+    );
     expect(screen.queryAllByText(/must/i)[1].textContent).toEqual('Must be less than 100 symbols');
     userEvent.type(country, 'Non-existing country with very long title');
     expect(screen.queryAllByText(/must/i)[2].textContent).toEqual('Must be less than 20 symbols');
   });
-
 
   it('form fields - scenario 2', async () => {
     const title = screen.queryByTestId('form-title');
