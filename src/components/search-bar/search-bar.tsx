@@ -54,30 +54,18 @@ class SearchBar extends Component<
   };
 
   handleKeyPress = async (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
+    if (e.code === 'Enter') {
       await this.getAPIMovies(this.state.searchValue);
     }
   };
 
   async componentDidMount() {
     const searchValue = localStorage.getItem('searchValue');
-    const search = searchValue ? JSON.parse(searchValue) : null;
-    if (search) {
-      await this.getAPIMovies(search);
-      this.setState({
-        searchValue: search,
-      });
-    } else {
-      setTimeout(() => {
-        this.props.changeMainState((prevState) => ({
-          ...prevState,
-          movies: [],
-          isLoading: false,
-          fetchError: null,
-          isShowError: false,
-        }));
-      }, 500);
-    }
+    const search = searchValue ? JSON.parse(searchValue) : '';
+    await this.getAPIMovies(search);
+    this.setState({
+      searchValue: search,
+    });
   }
 
   componentDidUpdate(): void {
@@ -97,7 +85,7 @@ class SearchBar extends Component<
           onChange={(e) => {
             this.onSearchChange(e);
           }}
-          onKeyPress={(e) => this.handleKeyPress(e)}
+          onKeyDown={(e) => this.handleKeyPress(e)}
         />
         <label
           htmlFor="search"

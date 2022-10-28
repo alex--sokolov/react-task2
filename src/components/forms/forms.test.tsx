@@ -1,5 +1,5 @@
 import React from 'react';
-import { fireEvent, render, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import Forms from './forms';
 import { Genre } from '../../interfaces';
 import userEvent from '@testing-library/user-event/dist';
@@ -89,9 +89,6 @@ describe('Forms', () => {
     userEvent.click(date!);
     userEvent.type(date!, '2022-10-12');
     expect(screen.queryAllByText(/must/i)).toHaveLength(1);
-
-    // fireEvent(inputFile)
-
     expect(screen.queryByText('Movie was added')).toHaveClass('notify');
 
     act(() => {
@@ -101,23 +98,18 @@ describe('Forms', () => {
 
     await new Promise((resolve) => setTimeout(resolve, 500));
     expect(screen.queryAllByText(/must/i)).toHaveLength(1);
-
-    // expect(screen.queryByText('Uploaded incorrectly')).toBeInTheDocument();
     expect(screen.queryByText('Must be an image')).toBeInTheDocument();
 
     act(() => {
       userEvent.click(screen.queryByText('Pick file')!);
       userEvent.upload(inputFile!, fileGood);
     });
-
-    await new Promise((resolve) => setTimeout(resolve, 500));
-
+    await new Promise((resolve) => setTimeout(resolve, 1000));
     expect(screen.queryAllByText(/must/i)).toHaveLength(0);
     expect(btn).toBeEnabled();
     userEvent.click(btn);
     expect(screen.queryByText('Movie was added')).toHaveClass('show');
     await new Promise((resolve) => setTimeout(resolve, 2000));
     expect(screen.queryByText('Movie was added')!.classList.contains('show')).toBeFalsy();
-
   });
 });

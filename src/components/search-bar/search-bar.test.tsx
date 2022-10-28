@@ -3,8 +3,8 @@ import { render, screen } from '@testing-library/react';
 import SearchBar from './search-bar';
 import userEvent from '@testing-library/user-event/dist';
 
-
 describe('SearchBar', () => {
+
   const changeMainState = jest.fn();
   it('renders SearchBar component', async () => {
     render(<SearchBar changeMainState={changeMainState} />);

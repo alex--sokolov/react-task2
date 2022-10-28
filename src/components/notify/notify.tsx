@@ -8,7 +8,10 @@ class Notify extends Component<
 > {
   render(): React.ReactNode {
     return (
-      <div className={`notify ${this.props.type} ${this.props.isShow ? 'show' : ''}`}>
+      <div
+        className={`notify ${this.props.type} ${this.props.isShow ? 'show' : ''}`}
+        data-testid="notify"
+      >
         {this.props.message}
       </div>
     );

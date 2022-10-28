@@ -71,19 +71,9 @@ export default class Card extends Component<
     }, 7000);
   }
 
-  componentDidUpdate(
-    prevProps: Readonly<
-      Readonly<{
-        movie: IMovie;
-        toggleOverlay: (modalId: string | null) => void;
-        modalOpened: string | null;
-      }>
-    >
-  ) {
+  componentDidUpdate() {
     if (this.props.isModalClosing && this.props.modalOpened === this.props.movie._id) {
       this.hidePopupMovieInfo();
-      console.log('modalOpened: ', this.props.modalOpened);
-      console.log('modalOpenedprevProps: ', prevProps.modalOpened);
     }
   }
 
@@ -93,17 +83,20 @@ export default class Card extends Component<
     const movieClass = this.props.modalOpened === movie._id ? 'active' : '';
     return (
       <>
-        <div key={movie._id} className={`movie ${movieClass}`}>
-          <h3
-            className="title"
-            data-testid="card-title"
-            onClick={() => {
-              this.showPopupMovieInfo(movie._id);
-            }}
+        <div
+          key={movie._id}
+          className={`movie ${movieClass}`}
+          data-testid={`movie-id-${movie._id}`}
+          onClick={() => {
+            this.showPopupMovieInfo(movie._id);
+          }}
+        >
+          <h3 className="title">{movie.name}</h3>
+          <div
+            className={`full-info ${fullInfoClass}`}
+            ref={this.fullInfoRef}
+            data-testid={`popup-id-${movie._id}`}
           >
-            {movie.name}
-          </h3>
-          <div className={`full-info ${fullInfoClass}`} ref={this.fullInfoRef}>
             <div className="close-modal" onClick={this.hidePopupMovieInfo}>
               x
             </div>
@@ -155,6 +148,7 @@ export default class Card extends Component<
             </div>
             <div
               className="download-title-container"
+              data-testid="downloadProgress"
               style={{
                 display: `${this.state.isDownloading ? 'block' : 'none'}`,
               }}

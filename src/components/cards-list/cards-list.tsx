@@ -24,7 +24,7 @@ export default class CardsList extends Component<
     const listTitle =
       movies.length > 0
         ? 'Movie-list from "The Lord of the Rings" API'
-        : 'That is a static initial movie-list, shown before your first search';
+        : 'Nothing found! That is a static movie-list (not from search)';
     const movieList =
       movies.length > 0
         ? movies.map((movie: IMovie) => {
@@ -43,10 +43,10 @@ export default class CardsList extends Component<
           });
     const movieListClass = movies.length > 0 ? 'movies-list' : 'movies-static-list';
     return (
-      <section className="cards-list" data-testid="cars-list">
+      <section className="cards-list" data-testid="cards-list">
         <Notify
           isShow={isShowError}
-          message={`${fetchError?.errorCode} | ${fetchError?.errorMessage}` || ''}
+          message={`${fetchError?.errorCode} | ${fetchError?.errorMessage}`}
           type={NotifyType.ERROR}
         />
         {isLoading ? (

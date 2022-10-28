@@ -246,8 +246,8 @@ class Forms extends Component {
   validateLogo(): FieldError[] {
     const result = [];
     if (!this.state.form.logo) {
-      const errors =
-        this.state.form.logo === null ? ['Uploaded incorrectly'] : ['Logo must be specified'];
+      const errors = ['Logo must be specified'];
+        // this.state.form.logo === null ? ['Uploaded incorrectly'] : ['Logo must be specified'];
       result.push({
         field: FormFields.logo,
         errors,
@@ -270,7 +270,6 @@ class Forms extends Component {
 
   handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    // console.log('loading');
     this.setState(() => ({
       isLoading: true,
     }));

@@ -38,6 +38,7 @@ class MainPage extends Component {
           id="overlay"
           className={`overlay ${this.overlayClass()}`}
           onClick={() => this.closeModal()}
+          data-testid="overlay"
         />
         <div data-testid="main-page">
           <SearchBar changeMainState={this.setState.bind(this)} />
