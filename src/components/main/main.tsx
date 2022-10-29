@@ -1,60 +1,53 @@
-import React, { Component } from 'react';
+import React, { FC, useState } from 'react';
 import './main.scss';
 import SearchBar from '../search-bar/search-bar';
 import CardsList from '../cards-list/cards-list';
-import { IState } from '../../interfaces';
+import { IFetchError, IMovie } from '../../interfaces';
 
-class MainPage extends Component {
-  state: Omit<IState, 'searchValue'> = {
-    movies: [],
-    isLoading: true,
-    fetchError: null,
-    isShowError: false,
-    modalOpened: null,
-    isModalClosing: false,
+const MainPage: FC = () => {
+  const [modalOpened, setModalOpened] = useState<string | null>(null);
+  const [isModalClosing, setIsModalClosing] = useState<boolean>(false);
+  const [movies, setMovies] = useState<IMovie[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [fetchError, setFetchError] = useState<IFetchError | null>(null);
+  const [isShowError, setIsShowError] = useState<boolean>(false);
+
+  const closeModal = () => {
+    setIsModalClosing(true);
   };
 
-  overlayClass = (): string => (this.state.modalOpened ? 'show' : '');
-
-  closeModal = () => {
-    this.setState((prevState) => ({
-      ...prevState,
-      isModalClosing: true,
-    }));
+  const toggleOverlay = (modalId: string | null = null): void => {
+    setModalOpened(modalId);
+    setIsModalClosing(false);
   };
 
-  toggleOverlay = (modalId?: string | null): void => {
-    this.setState((prevState) => ({
-      ...prevState,
-      modalOpened: modalId,
-      isModalClosing: false,
-    }));
-  };
-
-  render(): React.ReactNode {
-    return (
-      <>
-        <div
-          id="overlay"
-          className={`overlay ${this.overlayClass()}`}
-          onClick={() => this.closeModal()}
-          data-testid="overlay"
+  return (
+    <>
+      <div
+        id="overlay"
+        className={`overlay ${modalOpened ? 'show' : ''}`}
+        onClick={closeModal}
+        data-testid="overlay"
+      />
+      <div data-testid="main-page">
+        <SearchBar
+          setMovies={setMovies}
+          setIsLoading={setIsLoading}
+          setFetchError={setFetchError}
+          setIsShowError={setIsShowError}
         />
-        <div data-testid="main-page">
-          <SearchBar changeMainState={this.setState.bind(this)} />
-          <CardsList
-            movies={this.state.movies}
-            isLoading={this.state.isLoading}
-            fetchError={this.state.fetchError}
-            isShowError={this.state.isShowError}
-            toggleOverlay={this.toggleOverlay}
-            modalOpened={this.state.modalOpened}
-            isModalClosing={this.state.isModalClosing}
-          />
-        </div>
-      </>
-    );
-  }
-}
+        <CardsList
+          movies={movies}
+          isLoading={isLoading}
+          fetchError={fetchError}
+          isShowError={isShowError}
+          toggleOverlay={toggleOverlay}
+          modalOpened={modalOpened}
+          isModalClosing={isModalClosing}
+        />
+      </div>
+    </>
+  );
+};
 
 export default MainPage;

@@ -1,101 +1,82 @@
-import React, { ChangeEvent, Component } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import './search-bar.scss';
-import { IFetchError, IState } from '../../interfaces';
+import { IFetchError, IMovie } from '../../interfaces';
 import { getMoviesBySearch } from '../../utils/api';
 
-class SearchBar extends Component<
-  Readonly<{
-    changeMainState: React.Dispatch<React.SetStateAction<Omit<IState, 'searchValue'>>>;
-  }>,
-  unknown
-> {
-  state: Pick<IState, 'searchValue'> = {
-    searchValue: '',
-  };
+const SearchBar = (props: {
+  setMovies: React.Dispatch<React.SetStateAction<IMovie[]>>;
+  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  setFetchError: React.Dispatch<React.SetStateAction<IFetchError | null>>;
+  setIsShowError: React.Dispatch<React.SetStateAction<boolean>>;
+}) => {
+  const { setMovies, setIsLoading, setFetchError, setIsShowError } = props;
 
-  onSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
-    this.setState({
-      searchValue: e.target.value,
-    });
-  };
+  const [searchValue, setSearchValue] = useState<string>('');
 
-  getAPIMovies = async (search: string): Promise<void> => {
+  const getAPIMovies = async (search: string): Promise<void> => {
     const data = await getMoviesBySearch(search);
     if (Array.isArray(data)) {
-      this.props.changeMainState((prevState) => {
-        return {
-          ...prevState,
-          movies: data,
-          isLoading: false,
-        };
-      });
+      setMovies(data);
+      setIsLoading(false);
     } else {
-      this.props.changeMainState((prevState) => ({
-        ...prevState,
-        isLoading: false,
-        fetchError: data as IFetchError,
-        isShowError: true,
-      }));
+      setIsLoading(false);
+      setFetchError(data as IFetchError);
+      setIsShowError(true);
 
       setTimeout(() => {
-        this.props.changeMainState((prevState) => ({
-          ...prevState,
-          isShowError: false,
-        }));
+        setIsShowError(false);
       }, 2000);
 
       setTimeout(() => {
-        this.props.changeMainState((prevState) => ({
-          ...prevState,
-          fetchError: null,
-        }));
+        setFetchError(null);
       }, 2500);
     }
   };
 
-  handleKeyPress = async (e: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleKeyPress = async (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.code === 'Enter') {
-      await this.getAPIMovies(this.state.searchValue);
+      await getAPIMovies(searchValue);
     }
   };
 
-  async componentDidMount() {
+  const getInitialMovies = useCallback(getAPIMovies, [
+    setFetchError,
+    setIsLoading,
+    setMovies,
+    setIsShowError,
+  ]);
+
+  useEffect(() => {
     const searchValue = localStorage.getItem('searchValue');
     const search = searchValue ? JSON.parse(searchValue) : '';
-    await this.getAPIMovies(search);
-    this.setState({
-      searchValue: search,
-    });
-  }
+    getInitialMovies(search).catch(console.error);
+    setSearchValue(search);
+  }, [getInitialMovies]);
 
-  componentDidUpdate(): void {
-    localStorage.setItem('searchValue', JSON.stringify(this.state.searchValue));
-  }
+  useEffect(() => {
+    localStorage.setItem('searchValue', JSON.stringify(searchValue));
+  }, [searchValue]);
 
-  render() {
-    return (
-      <section className="search-bar">
-        <input
-          id="search"
-          type="text"
-          data-testid="search"
-          className="search"
-          placeholder="Search"
-          value={this.state.searchValue}
-          onChange={(e) => {
-            this.onSearchChange(e);
-          }}
-          onKeyDown={(e) => this.handleKeyPress(e)}
-        />
-        <label
-          htmlFor="search"
-          className="search-icon"
-          data-testid="label-search"
-          onClick={async () => await this.getAPIMovies(this.state.searchValue)}
-        />
-      </section>
-    );
-  }
-}
+  return (
+    <section className="search-bar">
+      <input
+        id="search"
+        type="text"
+        data-testid="search"
+        className="search"
+        placeholder="Search"
+        value={searchValue}
+        onChange={(e) => setSearchValue(e.target.value)}
+        onKeyDown={(e) => handleKeyPress(e)}
+      />
+      <label
+        htmlFor="search"
+        className="search-icon"
+        data-testid="label-search"
+        onClick={() => getAPIMovies(searchValue)}
+      />
+    </section>
+  );
+};
 
 export default SearchBar;

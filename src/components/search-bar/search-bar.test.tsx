@@ -4,10 +4,20 @@ import SearchBar from './search-bar';
 import userEvent from '@testing-library/user-event/dist';
 
 describe('SearchBar', () => {
+  const setMovies = jest.fn();
+  const setIsLoading = jest.fn();
+  const setFetchError = jest.fn();
+  const setIsShowError = jest.fn();
 
-  const changeMainState = jest.fn();
   it('renders SearchBar component', async () => {
-    render(<SearchBar changeMainState={changeMainState} />);
+    render(
+      <SearchBar
+        setMovies={setMovies}
+        setIsLoading={setIsLoading}
+        setFetchError={setFetchError}
+        setIsShowError={setIsShowError}
+      />
+    );
     expect(screen.getByPlaceholderText('Search')).toBeInTheDocument();
     expect(screen.getByTestId('label-search')).toBeInTheDocument();
   });
@@ -20,7 +30,14 @@ describe('SearchBar', () => {
       },
       writable: true,
     });
-    render(<SearchBar changeMainState={changeMainState} />);
+    render(
+      <SearchBar
+        setMovies={setMovies}
+        setIsLoading={setIsLoading}
+        setFetchError={setFetchError}
+        setIsShowError={setIsShowError}
+      />
+    );
     const search = screen.getByTestId('search');
     expect(search).toBeInTheDocument();
     expect(screen.queryByText('test')).toBeNull();
