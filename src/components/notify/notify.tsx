@@ -1,21 +1,17 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './notify.scss';
 import { NotifyType } from '../../interfaces';
 
-class Notify extends Component<
-  Readonly<{ isShow: boolean; message: string; type: NotifyType }>,
-  unknown
-> {
-  render(): React.ReactNode {
-    return (
-      <div
-        className={`notify ${this.props.type} ${this.props.isShow ? 'show' : ''}`}
-        data-testid="notify"
-      >
-        {this.props.message}
-      </div>
-    );
-  }
+const Notify = (props: { isShow: boolean; message: string; type: NotifyType }) => {
+  const {isShow, message, type} = props;
+  return (
+    <div
+      className={`notify ${type} ${isShow ? 'show' : ''}`}
+      data-testid="notify"
+    >
+      {message}
+    </div>
+  );
 }
 
 export default Notify;
