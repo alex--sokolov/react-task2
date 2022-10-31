@@ -2,7 +2,7 @@ import React from 'react';
 import './cardStatic.scss';
 import { IMovieStatic } from '../../interfaces';
 
-const CardStatic = (props:{movie: IMovieStatic}) => {
+const CardStatic = (props: { movie: IMovieStatic }) => {
   const { movie } = props;
   return (
     <div key={movie.id} className="movie-static">
@@ -23,6 +23,6 @@ const CardStatic = (props:{movie: IMovieStatic}) => {
       </div>
     </div>
   );
-}
+};
 
 export default CardStatic;
