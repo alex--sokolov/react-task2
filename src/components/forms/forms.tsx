@@ -78,7 +78,7 @@ const Forms = () => {
         });
       }, 2000);
     }
-  }, [id, isSubmitSuccessful]);
+  }, [id, isSubmitSuccessful, reset]);
 
   const showErrors = (errors: MultipleFieldErrors | undefined, isLogo = false) =>
     errors
@@ -119,6 +119,9 @@ const Forms = () => {
     }
   }, [
     isSubmitted,
+    clearErrors,
+    setValue,
+    errors.logo,
     watchTitle,
     watchOverview,
     watchCountry,
@@ -255,6 +258,7 @@ const Forms = () => {
                 isValidGenre: (v) => isValidGenre(v) || `Genre is not valid`,
               },
             })}
+            data-testid="form-genre"
           >
             <option value="default" disabled>
               Choose an option
@@ -315,7 +319,7 @@ const Forms = () => {
                 mustBeImage: (v) => v !== 'not an image' || 'Must be an image',
               },
             }}
-            render={({ field: { onChange, name, value } }) => (
+            render={({ field: { onChange, name } }) => (
               <>
                 <input
                   type="file"

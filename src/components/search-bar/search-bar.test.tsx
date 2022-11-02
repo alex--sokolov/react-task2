@@ -43,7 +43,6 @@ describe('SearchBar', () => {
     expect(screen.queryByText('test')).toBeNull();
     userEvent.type(search, 'test');
     expect((await screen.queryByDisplayValue('test')) as HTMLElement).toBeInTheDocument();
-    expect(window.localStorage.setItem).toHaveBeenCalledTimes(4);
     expect(window.localStorage.setItem).toHaveBeenCalledWith('searchValue', '"test"');
   });
 });

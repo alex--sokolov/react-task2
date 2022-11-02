@@ -14,11 +14,15 @@ const Card = (props: {
   const fullInfoRef = useRef(null);
   const showPopupMovieInfo = (title: string | null) => toggleOverlay(title);
   const hidePopupMovieInfo = () => {
-    (fullInfoRef.current as unknown as HTMLInputElement).classList.add('hide');
-    (fullInfoRef.current as unknown as HTMLInputElement).classList.remove('show');
+    if (fullInfoRef && fullInfoRef.current) {
+      (fullInfoRef.current as unknown as HTMLInputElement).classList.add('hide');
+      (fullInfoRef.current as unknown as HTMLInputElement).classList.remove('show');
+    }
     setTimeout(() => {
       toggleOverlay(null);
-      (fullInfoRef.current as unknown as HTMLInputElement).classList.remove('hide');
+      if (fullInfoRef && fullInfoRef.current) {
+        (fullInfoRef.current as unknown as HTMLInputElement).classList.remove('hide');
+      }
     }, 400);
   };
 
