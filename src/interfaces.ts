@@ -120,6 +120,32 @@ export interface IMovie {
   _id: string;
 }
 
+export interface ICharacter {
+  name: string;
+  alternate_names: string[];
+  species: string;
+  gender: string;
+  house: string;
+  dateOfBirth: string;
+  yearOfBirth: number;
+  wizard: boolean;
+  ancestry: string;
+  eyeColour: string;
+  hairColour: string;
+  wand: {
+    wood: string;
+    core: string;
+    length: number;
+  };
+  patronus: string;
+  hogwartsStudent: boolean;
+  hogwartsStaff: boolean;
+  actor: string;
+  alternate_actors: string[];
+  alive: boolean;
+  image: string;
+}
+
 export interface IFetchError {
   errorCode: number;
   errorMessage: string;
@@ -148,4 +174,22 @@ export enum NotifyMessage {
 export interface IStateDownload {
   isDownloading: boolean;
   downloaded: boolean;
+}
+
+export interface IStateCharacter {
+  characters: ICharacter[] | IFetchError;
+  searchTerm: string;
+  isLoading: boolean;
+  toggleLoading?: () => void;
+  updateCharacters?: (searchTerm: string) => void;
+  updateSearchTerm?: (searchTerm: string) => void;
+}
+
+export interface IActionCharacters {
+  type: string;
+  payload?: ICharacter[] | IFetchError | string;
+}
+
+export enum Errors {
+  'Not Found' = 404,
 }
