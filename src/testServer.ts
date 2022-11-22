@@ -36,4 +36,4 @@ afterEach(() => {
   server.resetHandlers();
 });
 
-export {server, rest}
+export { server, rest };

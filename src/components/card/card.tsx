@@ -1,11 +1,12 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import './card.scss';
-import { ICharacter, IMovie } from '../../interfaces';
+
+import React, { useMemo, useRef, useState } from 'react';
+import { ICharacter } from '../../interfaces';
+import { Link } from 'react-router-dom';
 
 const Card = (props: { character: ICharacter }) => {
   const { character } = props;
-  const [isDownloading, setIsDownloading] = useState(false);
-  const [downloaded, setDownloaded] = useState(false);
+
   const fullInfoRef = useRef(null);
 
   // const showPopupMovieInfo = (title: string | null) => toggleOverlay(title);
@@ -48,23 +49,47 @@ const Card = (props: { character: ICharacter }) => {
   //   [modalOpened, movie._id]
   // );
 
+  const uniqueUrl = useMemo(() => {
+    const altName = character.alternate_names.length > 0 ? '-' + character.alternate_names[0] : '';
+    return '/character/' + character.name + altName;
+  }, [character]);
+
   return (
     <>
-      <div
+      <Link
+        to={uniqueUrl}
         // key={character.name}
-        className={`character-container`}
-        // onClick={() => {
-        //   showPopupMovieInfo(movie._id);
-        // }}
+        className={`character`}
       >
         <h3 className="title">{character.name}</h3>
-        {character.image && (
+        {character.image ? (
           <div
-            className="photo-container"
+            className="photo"
             // ref={fullInfoRef}
             // data-testid={`popup-id-${movie._id}`}
           >
             <img src={character.image} alt={character.name} />
+          </div>
+        ) : (
+          <div className="info">
+            {character.species && (
+              <div className="field">
+                <h4>Species</h4>: <p>{character.species}</p>
+              </div>
+            )}
+            {character.alternate_names && character.alternate_names.length > 0 && (
+              <div className="field">
+                <h4>Alternate names</h4>:{' '}
+                {character.alternate_names.map((name) => (
+                  <p key={name}>{name}</p>
+                ))}
+              </div>
+            )}
+            {character.actor && (
+              <div className="field">
+                <h4>Actor</h4>: {character.actor}
+              </div>
+            )}
           </div>
         )}
 
@@ -148,7 +173,7 @@ const Card = (props: { character: ICharacter }) => {
         {/*  </div>*/}
         {/*</div>*/}
         {/*</div>*/}
-      </div>
+      </Link>
     </>
   );
 };

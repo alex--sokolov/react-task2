@@ -1,0 +1,165 @@
+.go-back {
+  color: dodgerblue;
+  text-transform: uppercase;
+  margin: 40px auto 0;
+  padding: 5px 15px;
+  background-color: #fff;
+  border: 2px solid dodgerblue;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: .5s;
+
+  &:hover {
+    background-color: dodgerblue;
+    color: #fff;
+    transition: .5s;
+  }
+}
+
+.character-container {
+  display: block;
+  margin: 50px auto;
+  text-align: center;
+  color: #444;
+  padding: 10px;
+  border: 1px dashed dodgerblue;
+  border-radius: 15px;
+  width: calc(90% - 20px);
+  transition: .2s;
+
+  h3, h4, p {
+    display: inline;
+  }
+
+  .actor {
+    margin: 0;
+    padding: 0;
+  }
+
+
+  .content-container {
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+
+    .photo {
+      padding: 10px 0 0;
+
+      img {
+        border-radius: 5px;
+        width: 320px;
+        height: 460px;
+      }
+    }
+
+    .info-container {
+      margin-top: 10px;
+
+      .field {
+        text-align: left;
+        padding: 2px;
+
+        h4 {
+          text-decoration: underline;
+        }
+      }
+    }
+
+    .download-btn {
+      color: dodgerblue;
+      text-transform: uppercase;
+      margin: 40px auto 0;
+      padding: 5px 15px;
+      background-color: #fff;
+      border: 2px solid dodgerblue;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: .5s;
+
+      &:hover {
+        background-color: dodgerblue;
+        color: #fff;
+        transition: .5s;
+      }
+    }
+
+    @keyframes Blink {
+      50% {
+        color: rgb(34, 34, 34);
+      }
+      51% {
+        color: rgba(34, 34, 34, 0);
+      }
+      100% {
+        color: rgba(34, 34, 34, 0);
+      }
+    }
+
+    .download-title-container {
+      font-size: 12px;
+      margin: 40px auto 0;
+    }
+
+    .download-title {
+      color: #cc0000;
+      font-weight: 700;
+    }
+
+    .download-text {
+      padding-left: 5px;
+      color: #333;
+      animation: Blink 2s linear infinite;
+    }
+
+    .download-text-finished {
+      font-weight: bold;
+      text-transform: uppercase;
+      color: darkgreen;
+      padding-left: 5px;
+    }
+
+    .download {
+      display: block;
+      height: 6px;
+      width: 100%;
+      border: 1px solid #333;
+      margin: 0;
+      padding: 0;
+
+
+      @keyframes Indicator {
+        0% {
+          width: 0;
+        }
+        100% {
+          width: 100%;
+        }
+      }
+
+      .indicator {
+        width: 0;
+        min-width: 0;
+        border: 1px solid red;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        background-color: dodgerblue;
+        animation: Indicator 4s ease-in-out forwards;
+      }
+    }
+
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .character-container {
+    .content-container {
+      flex-direction: column;
+
+      .info-container {
+        margin: 0 auto;
+      }
+    }
+  }
+}

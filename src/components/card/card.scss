@@ -1,11 +1,14 @@
-.movie {
+.character {
+  display: block;
   text-align: center;
   color: #444;
-  padding: 5px 15px;
+  padding: 10px;
   border: 1px solid dodgerblue;
   border-radius: 25px;
+  width: 170px;
+  height: 300px;
   box-shadow: 0 0 5px 1px dodgerblue;
-  transition: 0.2s;
+  transition: .2s;
 
   &:hover, &.active {
     color: #ddd;
@@ -17,187 +20,35 @@
   .title {
     margin: 0;
     padding: 0;
+    height: 50px;
   }
-}
 
-.full-info {
-  display: none;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: aliceblue;
-  border: 2px solid dodgerblue;
-  border-radius: 25px;
-  padding: 40px 20px;
-  min-width: 300px;
-  z-index: 20;
-  cursor: default;
-  transition: 1s;
+  .photo {
+    padding: 10px 0 0;
 
-  .close-modal {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    padding: 0;
-    color: #999;
-    font-weight: 700;
-    text-transform: uppercase;
-    border: 2px solid #999;
-    border-radius: 50%;
-    width: 30px;
-    height: 30px;
-    cursor: pointer;
-    top: 10px;
-    right: 10px;
-    transition: .5s;
-
-    &:hover {
-      color: #fff;
-      background: dodgerblue;
-      border: 2px solid dodgerblue;
-      box-shadow: 0 0 4px 1px dodgerblue;
-      transition: .5s;
+    img {
+      border-radius: 5px;
+      width: 160px;
+      height: 230px;
     }
   }
 
-  @keyframes ModalAppear {
-    0% {
-      transform: scale(.2) translate(-50%, -50%);
-    }
-    100% {
-      transform: scale(1) translate(-50%, -50%);
-    }
-  }
+  .info {
+    margin-top: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    height: 230px;
+    .field {
+      text-align: left;
+      padding: 5px;
 
-  @keyframes ModalDisappear {
-    0% {
-      transform: scale(1) translate(-50%, -50%);
-    }
-    100% {
-      transform: scale(.2) translate(-50%, -50%);
-    }
-  }
-
-  &.show {
-    display: block;
-    animation: ModalAppear .5s;
-    transition: 1s;
-  }
-
-  &.hide {
-    display: block;
-    animation: ModalDisappear .5s;
-    transition: 1s;
-  }
-
-  h1, h3, h6 {
-    padding: 0;
-    margin: 0;
-  }
-
-  h1 {
-    color: dodgerblue;
-    padding-bottom: 40px;
-  }
-
-  div {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    padding: 5px 7px;
-
-    div:first-child {
-      min-width: 165px;
-      padding: 0;
-
-      h6 {
-        font-style: italic;
-        color: #999;
-        padding-bottom: 3px;
-        border-bottom: 1px solid #999;
-        text-align: left;
+      h4, p {
+        display: inline;
       }
-    }
 
-    h3 {
-      color: dodgerblue;
-    }
-
-  }
-
-  .download-btn {
-    color: dodgerblue;
-    text-transform: uppercase;
-    margin: 40px auto 0;
-    padding: 5px 15px;
-    background-color: #fff;
-    border: 2px solid dodgerblue;
-    border-radius: 25px;
-    cursor: pointer;
-    transition: .5s;
-    &:hover {
-      background-color: dodgerblue;
-      color: #fff;
-      transition: .5s;
-    }
-  }
-
-  @keyframes Blink {
-    50% { color: rgb(34, 34, 34); }
-    51% { color: rgba(34, 34, 34, 0); }
-    100% { color: rgba(34, 34, 34, 0); }
-  }
-
-  .download-title-container {
-    font-size: 12px;
-    margin: 40px auto 0;
-  }
-  .download-title {
-    color: #cc0000;
-    font-weight: 700;
-  }
-
-  .download-text {
-    padding-left: 5px;
-    color: #333;
-    animation: Blink 2s linear infinite;
-  }
-  .download-text-finished {
-    font-weight: bold;
-    text-transform: uppercase;
-    color: darkgreen;
-    padding-left: 5px;
-  }
-
-  .download {
-    display: block;
-    height: 6px;
-    width: 100%;
-    border: 1px solid #333;
-    margin: 0;
-    padding: 0;
-
-
-    @keyframes Indicator {
-      0% {
-        width: 0;
+      h4 {
+        text-decoration: underline;
       }
-      100% {
-        width: 100%;
-      }
-    }
-
-    .indicator {
-      width: 0;
-      min-width: 0;
-      border: 1px solid red;
-      height: 100%;
-      margin: 0;
-      padding: 0;
-      background-color: dodgerblue;
-      animation: Indicator 4s ease-in-out forwards;
     }
   }
 }

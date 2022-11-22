@@ -14,7 +14,7 @@ interface Props {
   children: JSX.Element[] | JSX.Element;
 }
 
-export const CharactersProvider = (props: Props) => {
+const CharactersProvider = (props: Props) => {
   const [state, dispatch] = useReducer(charactersReducer, initialCharactersState);
 
   const toggleLoading = () => {
@@ -28,8 +28,8 @@ export const CharactersProvider = (props: Props) => {
     const characters: ICharacter[] | IFetchError = (await getCharactersBySearch(searchTerm)) as
       | ICharacter[]
       | IFetchError;
-    console.log('characters from context: ', characters);
-    console.log('state from context: ', state);
+    // console.log('characters from context: ', characters);
+    // console.log('state from context: ', state);
     dispatch({
       type: CHANGE_CHARACTERS,
       payload: characters,
@@ -63,14 +63,4 @@ export const CharactersProvider = (props: Props) => {
   return <CharactersContext.Provider value={value}>{props.children}</CharactersContext.Provider>;
 };
 
-const useCharacters = () => {
-  const context = useContext(CharactersContext);
-
-  if (context === undefined) {
-    throw new Error('useCharacters must be used within CharactersContext');
-  }
-
-  return context;
-};
-
-export default useCharacters;
+export default CharactersProvider;

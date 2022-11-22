@@ -9,7 +9,6 @@ import {
   IMovie,
   IStateCharacter,
 } from '../../interfaces';
-import { CharactersProvider } from 'components/Characters/CharacterContext';
 
 const MainPage: FC = () => {
   // const [modalOpened, setModalOpened] = useState<string | null>(null);
@@ -52,7 +51,6 @@ const MainPage: FC = () => {
         {/*  modalOpened={modalOpened}*/}
         {/*  isModalClosing={isModalClosing}*/}
         {/*/>*/}
-
         <SearchBar />
         <CardsList />
       </div>

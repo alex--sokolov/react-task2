@@ -5,8 +5,8 @@ import { Genre, IForm } from '../../interfaces';
 
 describe('FormsCard', () => {
   it('renders FormsCard component correctly', () => {
-    const cards:IForm[] = [];
-    render(<FormsCards cards={cards}/>);
+    const cards: IForm[] = [];
+    render(<FormsCards cards={cards} />);
     expect(screen.queryAllByTestId('form-card-title')[0] as HTMLElement).toBeUndefined();
 
     cards.push({
@@ -21,7 +21,7 @@ describe('FormsCard', () => {
       logo: undefined,
     });
 
-    render(<FormsCards cards={cards}/>);
+    render(<FormsCards cards={cards} />);
     expect(screen.queryAllByTestId('form-card-title')[0] as HTMLElement).toBeInTheDocument();
     expect(screen.queryByText(Genre.thriller)).toBeInTheDocument();
     expect(screen.queryByText('Hardcore')).toBeInTheDocument();

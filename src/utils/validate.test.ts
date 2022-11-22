@@ -1,14 +1,22 @@
-import { isValidDate, isValidGenre, isValidMax, isValidMin, isValidOnlyEnglishSymbols } from './validate';
+import {
+  isValidDate,
+  isValidGenre,
+  isValidMax,
+  isValidMin,
+  isValidOnlyEnglishSymbols,
+} from './validate';
 import { Genre } from '../interfaces';
 
-describe( 'Validate Functions',() => {
+describe('Validate Functions', () => {
   it('isValidMin works', () => {
     expect(isValidMin('test', 3)).toBeTruthy();
     expect(isValidMin('zz', 3)).toBeFalsy();
   });
   it('isValidMax works', () => {
     expect(isValidMax('test', 30)).toBeTruthy();
-    expect(isValidMax('This string contains a little bit more symbols, than it is allowed', 30)).toBeFalsy();
+    expect(
+      isValidMax('This string contains a little bit more symbols, than it is allowed', 30)
+    ).toBeFalsy();
   });
   it('isValidOnlyEnglishSymbols works', () => {
     expect(isValidOnlyEnglishSymbols('test')).toBeTruthy();
@@ -24,4 +32,4 @@ describe( 'Validate Functions',() => {
     expect(isValidGenre(Genre.thriller)).toBeTruthy();
     expect(isValidGenre(Genre.default)).toBeFalsy();
   });
-})
+});
