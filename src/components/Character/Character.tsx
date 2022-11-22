@@ -1,14 +1,17 @@
 import './character.scss';
 
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { ReactElement, useEffect, useMemo, useState } from 'react';
 import useCharacters from '../../hooks/useCharacters';
-import { useLocation } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import { ICharacter } from '../../interfaces';
 import { useNavigate } from 'react-router-dom';
+import useBreadcrumbs, { BreadcrumbData } from 'use-react-router-breadcrumbs';
+import BreadcrumbTrail from '../Breadcrumbs/Breadcrumbs';
 
 const Character = () => {
   const { characters } = useCharacters();
   const { pathname } = useLocation();
+
   const character = useMemo(() => {
     const characterParams = pathname.slice(11).split('-');
     return Array.isArray(characters)

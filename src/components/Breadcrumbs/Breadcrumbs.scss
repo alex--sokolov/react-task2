@@ -1,0 +1,21 @@
+.breadcrumbs {
+  display: flex;
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-size: 12px;
+  transform: translateY(-10px);
+
+  a {
+    margin-right: 0;
+  }
+}
+
+
+.header {
+  .breadcrumbs {
+    .active {
+      color: mediumvioletred !important;
+    }
+  }
+}

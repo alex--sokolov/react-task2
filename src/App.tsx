@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.scss';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Link } from 'react-router-dom';
 import Header from './components/header/header';
 import Page404 from './components/page404/page404';
 import AboutPage from './components/about/about';

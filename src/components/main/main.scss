@@ -9,10 +9,17 @@
   z-index: 0;
   cursor: pointer;
   transition: 0.1s;
+
   &.show {
     visibility: visible;
     opacity: 1;
     z-index: 10;
     transition: 0.1s;
   }
+}
+
+.breadcrumbs {
+  padding: 15px;
+  text-align: left;
+  color: mediumvioletred;
 }

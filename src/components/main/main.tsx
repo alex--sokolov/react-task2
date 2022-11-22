@@ -2,6 +2,8 @@ import React, { FC, useReducer, useState } from 'react';
 import './main.scss';
 import SearchBar from '../search-bar/search-bar';
 import CardsList from '../cards-list/cards-list';
+import useBreadcrumbs from 'use-react-router-breadcrumbs';
+
 import {
   IActionCharacters,
   ICharacter,
@@ -11,6 +13,7 @@ import {
 } from '../../interfaces';
 
 const MainPage: FC = () => {
+  const breadcrumbs = useBreadcrumbs();
   // const [modalOpened, setModalOpened] = useState<string | null>(null);
   // const [isModalClosing, setIsModalClosing] = useState<boolean>(false);
   // const [movies, setMovies] = useState<IMovie[]>([]);
