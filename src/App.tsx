@@ -1,13 +1,14 @@
 import React from 'react';
 import './App.scss';
-import { Routes, Route, Link } from 'react-router-dom';
-import Header from './components/header/header';
-import Page404 from './components/page404/page404';
-import AboutPage from './components/about/about';
-import Main from './components/main/main';
-import Forms from 'components/forms/forms';
+import { Routes, Route } from 'react-router-dom';
+
 import CharactersProvider from './components/Characters/CharacterContext';
-import Character from 'components/Character/Character';
+import Main from './components/pages/Main/Main';
+import Header from './components/layout/Header/Header';
+import Character from './components/ui/Character/Character';
+import Forms from './components/pages/Forms/Forms';
+import AboutPage from './components/pages/About/About';
+import Page404 from './components/pages/Page404/page404';
 
 function App() {
   return (

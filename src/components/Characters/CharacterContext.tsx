@@ -28,8 +28,6 @@ const CharactersProvider = (props: Props) => {
     const characters: ICharacter[] | IFetchError = (await getCharactersBySearch(searchTerm)) as
       | ICharacter[]
       | IFetchError;
-    // console.log('characters from context: ', characters);
-    // console.log('state from context: ', state);
     dispatch({
       type: CHANGE_CHARACTERS,
       payload: characters,

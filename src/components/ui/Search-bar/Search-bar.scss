@@ -1,0 +1,40 @@
+
+.search-bar {
+  margin: 20px auto 0 auto;
+  width: 300px;
+  position: relative;
+  .search {
+    padding: 10px 10px 10px 50px;
+    display: block;
+    width: 240px;
+    border-radius: 20px;
+    border: 0;
+    outline: 1px solid #aaa;
+    &:focus {
+      outline: 1px solid red;
+    }
+  }
+  .search-icon {
+    content: 'dsfdsfd';
+    display: block;
+    width: 24px;
+    height: 24px;
+    position: absolute;
+    margin-top: -30px;
+    margin-left: 10px;
+    background-color: #ccc;
+    mask-image: url('../../../assets/img/svg/search-icon.svg');
+    mask-size: contain;
+    mask-repeat: no-repeat;
+    -webkit-mask-image: url('../../../assets/img/svg/search-icon.svg');
+    -webkit-mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    cursor: pointer;
+    transition: .5s;
+    &:hover {
+      background-color: red;
+      transition: .5s;
+    }
+  }
+}
+
