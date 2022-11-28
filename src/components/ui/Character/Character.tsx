@@ -26,7 +26,7 @@ const Character = () => {
     if (!character) {
       navigate('/');
     }
-  }, [character]);
+  }, [character, navigate]);
 
   const [isDownloading, setIsDownloading] = useState(false);
   const [downloaded, setDownloaded] = useState(false);

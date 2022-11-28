@@ -36,7 +36,6 @@
     padding: 0;
   }
 
-
   .content-container {
     margin-top: 50px;
     display: flex;
@@ -159,6 +158,19 @@
 
       .info-container {
         margin: 0 auto;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .character-container {
+    .content-container {
+      .photo {
+        img {
+          width: 240px;
+          height: 345px;
+        }
       }
     }
   }

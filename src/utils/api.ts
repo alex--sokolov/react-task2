@@ -17,28 +17,39 @@ export const getCharactersBySearch = async (
   });
   if (response.ok) {
     console.log('response.headers', response.headers.get('link'));
-    const maxPageStr: string | undefined = response.headers
-      .get('link')
-      ?.split(',')[2]
-      .split(';')[0]
-      .split('?')[1]
-      .slice(0, -1)
-      .split('&')
-      .map((param) => param.split('='))
-      .filter((param) => param[0] === '_page')[0][1];
-    const maxPage = maxPageStr ? Number(maxPageStr) : 1;
-    const paginateInfo = {
-      currentPage: page,
-      maxPage,
-      limit,
-    };
-    // console.log('response.headers', response.headers.get('link'));
+    const responseHeaders = response.headers.get('link')?.split(',');
+    console.log('responseHeaders', responseHeaders);
     data = await response.json();
-    console.log('paginateInfo: ', paginateInfo);
-    console.log('data: ', data);
+    if (responseHeaders && Array.isArray(responseHeaders)) {
+      const maxPageStr: string | undefined = responseHeaders[responseHeaders.length - 1]
+        .split(';')[0]
+        .split('?')[1]
+        .slice(0, -1)
+        .split('&')
+        .map((param) => param.split('='))
+        .filter((param) => param[0] === '_page')[0][1];
+      const maxPage = maxPageStr ? Number(maxPageStr) : 1;
+      const paginateInfo = {
+        currentPage: page,
+        maxPage,
+        limit,
+      };
+      // console.log('response.headers', response.headers.get('link'));
+      console.log('paginateInfo: ', paginateInfo);
+      console.log('data: ', data);
+      return {
+        data,
+        paginateInfo,
+      };
+    }
+
     return {
       data,
-      paginateInfo,
+      paginateInfo: {
+        currentPage: 1,
+        maxPage: 1,
+        limit: limit,
+      },
     };
   }
 

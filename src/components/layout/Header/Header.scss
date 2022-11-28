@@ -1,5 +1,6 @@
 .header {
   display: flex;
+  height: 40px;
   justify-content: center;
   align-items: flex-start;
   background-color: #282c34;
@@ -16,5 +17,11 @@
   }
   .active {
     color: crimson;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .header {
+    font-size: 1rem;
   }
 }

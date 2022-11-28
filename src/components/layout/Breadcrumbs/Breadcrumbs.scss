@@ -19,3 +19,9 @@
     }
   }
 }
+
+@media screen and (max-width: 1000px) {
+  .breadcrumbs {
+    transform: translateY(5px);
+  }
+}

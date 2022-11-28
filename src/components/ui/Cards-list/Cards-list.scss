@@ -1,10 +1,52 @@
 .cards-list {
   margin: 60px auto;
 }
+
 .characters-list {
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
   margin-left: 50px;
   gap: 20px;
+}
+
+.limit {
+  height: 28px;
+  width: 200px;
+  border: 2px solid #ccc;
+  box-shadow: 2px 2px 4px -1px #aaa;
+  border-radius: 5px;
+  padding: 2px 6px;
+  transition: .5s;
+
+  &:focus {
+    border: 2px solid dodgerblue;
+    box-shadow: 2px 2px 4px -1px dodgerblue;
+    outline: 0;
+  }
+
+  margin-bottom: 20px;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+
+  div {
+    color: dodgerblue;
+    padding: 5px;
+    font-size: 2rem;
+    div.link {
+      &.active {
+        pointer-events: none;
+        color: mediumvioletred;
+        font-weight: 700;
+      }
+
+      &:hover {
+        text-decoration: underline;
+        cursor: pointer;
+      }
+    }
+  }
 }
