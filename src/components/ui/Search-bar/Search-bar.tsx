@@ -3,12 +3,13 @@ import './Search-bar.scss';
 import useCharacters from '../../../hooks/useCharacters';
 
 const SearchBar = () => {
-  const { searchTerm, characters, updateSearchTerm, updateCharacters } = useCharacters();
+  const { searchTerm, characters, paginateInfo, updateSearchTerm, updateCharacters } =
+    useCharacters();
 
   const handleKeyPress = async (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.code === 'Enter') {
       if (updateCharacters) {
-        await updateCharacters(searchTerm);
+        await updateCharacters(searchTerm, paginateInfo.currentPage, paginateInfo.limit);
       }
     }
   };
@@ -22,7 +23,7 @@ const SearchBar = () => {
       }
 
       if (Array.isArray(characters) && characters.length === 0 && updateCharacters) {
-        await updateCharacters(search);
+        await updateCharacters(search, paginateInfo.currentPage, paginateInfo.limit);
       }
     })();
   }, []);
@@ -54,7 +55,7 @@ const SearchBar = () => {
         data-testid="label-search"
         onClick={async () => {
           if (updateCharacters) {
-            await updateCharacters(searchTerm);
+            await updateCharacters(searchTerm, paginateInfo.currentPage, paginateInfo.limit);
           }
         }}
       />

@@ -147,8 +147,8 @@ export interface ICharacter {
 }
 
 export interface IFetchError {
-  errorCode: number;
-  errorMessage: string;
+  errorCode: number | null;
+  errorMessage: string | null;
 }
 
 export type IState = {
@@ -176,18 +176,30 @@ export interface IStateDownload {
   downloaded: boolean;
 }
 
+export interface IPaginateInfo {
+  currentPage: number;
+  maxPage: number;
+  limit: number;
+}
+
 export interface IStateCharacter {
   characters: ICharacter[] | IFetchError;
   searchTerm: string;
   isLoading: boolean;
+  paginateInfo: IPaginateInfo;
   toggleLoading?: () => void;
-  updateCharacters?: (searchTerm: string) => void;
+  updateCharacters?: (searchTerm: string, page: number, limit: number) => void;
   updateSearchTerm?: (searchTerm: string) => void;
+}
+
+export interface IFetchSuccess {
+  data: ICharacter[];
+  paginateInfo: IPaginateInfo | null;
 }
 
 export interface IActionCharacters {
   type: string;
-  payload?: ICharacter[] | IFetchError | string;
+  payload?: IFetchSuccess | IFetchError | string;
 }
 
 export enum Errors {

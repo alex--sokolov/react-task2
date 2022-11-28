@@ -1,11 +1,12 @@
-import React, { createContext, useContext, useReducer } from 'react';
+import React, { createContext, useReducer } from 'react';
 import charactersReducer, {
-  CHANGE_CHARACTERS,
+  CHANGE_CHARACTERS_SUCCESS,
+  CHANGE_CHARACTERS_ERROR,
   CHANGE_SEARCH_TERM,
   initialCharactersState,
   TOGGLE_LOADING,
 } from './charactersReducer';
-import { ICharacter, IFetchError } from '../../interfaces';
+import { IFetchError, IFetchSuccess } from '../../interfaces';
 import { getCharactersBySearch } from '../../utils/api';
 
 export const CharactersContext = createContext(initialCharactersState);
@@ -23,24 +24,33 @@ const CharactersProvider = (props: Props) => {
     });
   };
 
-  const updateCharacters = async (searchTerm: string) => {
+  const updateCharacters = async (searchTerm: string, page: number, limit: number) => {
     toggleLoading();
-    const characters: ICharacter[] | IFetchError = (await getCharactersBySearch(searchTerm)) as
-      | ICharacter[]
-      | IFetchError;
-    dispatch({
-      type: CHANGE_CHARACTERS,
-      payload: characters,
-    });
-    toggleLoading();
-    if (!Array.isArray(characters)) {
-      setTimeout(() => {
-        dispatch({
-          type: CHANGE_CHARACTERS,
-          payload: [],
-        });
-      }, 3000);
+    const charactersInfo: IFetchSuccess | IFetchError = (await getCharactersBySearch(
+      page,
+      limit,
+      searchTerm
+    )) as IFetchSuccess | IFetchError;
+
+    if (
+      'data' in charactersInfo &&
+      'paginateInfo' in charactersInfo &&
+      charactersInfo?.data &&
+      charactersInfo?.paginateInfo
+    ) {
+      dispatch({
+        type: CHANGE_CHARACTERS_SUCCESS,
+        payload: charactersInfo,
+      });
     }
+
+    if ('errorCode' in charactersInfo && charactersInfo?.errorCode) {
+      dispatch({
+        type: CHANGE_CHARACTERS_ERROR,
+        payload: charactersInfo,
+      });
+    }
+    toggleLoading();
   };
 
   const updateSearchTerm = (searchTerm: string) => {
@@ -53,6 +63,7 @@ const CharactersProvider = (props: Props) => {
   const value = {
     characters: state.characters,
     searchTerm: state.searchTerm,
+    paginateInfo: state.paginateInfo,
     isLoading: state.isLoading,
     toggleLoading,
     updateCharacters,
