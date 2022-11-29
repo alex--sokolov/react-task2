@@ -21,9 +21,7 @@ export const getCharactersBySearch = async (
     }),
   });
   if (response.ok) {
-    console.log('response.headers', response.headers.get('link'));
     const responseHeaders = response.headers.get('link')?.split(',');
-    console.log('responseHeaders', responseHeaders);
     data = await response.json();
     if (responseHeaders && Array.isArray(responseHeaders)) {
       const maxPageStr: string | undefined = responseHeaders[responseHeaders.length - 1]
@@ -39,10 +37,6 @@ export const getCharactersBySearch = async (
         maxPage,
         limit,
       };
-      // console.log('response.headers', response.headers.get('link'));
-      console.log('paginateInfo: ', paginateInfo);
-      console.log('data: ', data);
-      console.log('api sortInfo: ', sortInfo);
       return {
         data,
         paginateInfo,
@@ -60,8 +54,6 @@ export const getCharactersBySearch = async (
       sortInfo,
     };
   }
-
-  console.log('response: ', response);
 
   return {
     errorCode: response.status,
