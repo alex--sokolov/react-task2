@@ -182,19 +182,45 @@ export interface IPaginateInfo {
   limit: number;
 }
 
+export enum ESortDirection {
+  desc = 'desc',
+  asc = 'asc',
+}
+
+export enum ESortField {
+  default = 'default',
+  name = 'name',
+  species = 'species',
+  image = 'image',
+}
+
+export interface ISortInfo {
+  // field: ESortField.name | ESortField.species | ESortField.image;
+  // direction: ESortDirection.desc | ESortDirection.asc;
+  field: ESortField;
+  direction: ESortDirection;
+}
+
 export interface IStateCharacter {
   characters: ICharacter[] | IFetchError;
   searchTerm: string;
   isLoading: boolean;
   paginateInfo: IPaginateInfo;
+  sortInfo: ISortInfo | null;
   toggleLoading?: () => void;
-  updateCharacters?: (searchTerm: string, page: number, limit: number) => void;
+  updateCharacters?: (
+    searchTerm: string,
+    page: number,
+    limit: number,
+    sortField: ISortInfo | null
+  ) => void;
   updateSearchTerm?: (searchTerm: string) => void;
 }
 
 export interface IFetchSuccess {
   data: ICharacter[];
   paginateInfo: IPaginateInfo | null;
+  sortInfo: ISortInfo | null;
 }
 
 export interface IActionCharacters {

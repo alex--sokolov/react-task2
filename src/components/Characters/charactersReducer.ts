@@ -14,6 +14,7 @@ export const initialCharactersState: IStateCharacter = {
     maxPage: 1,
     limit: 10,
   },
+  sortInfo: null,
   isLoading: false,
 };
 
@@ -31,6 +32,7 @@ const charactersReducer = (state: IStateCharacter, action: IActionCharacters): I
         ...state,
         characters: (payload as IFetchSuccess)?.data as ICharacter[],
         paginateInfo: (payload as IFetchSuccess)?.paginateInfo || state.paginateInfo,
+        sortInfo: (payload as IFetchSuccess)?.sortInfo,
       };
       console.log('newState changecharacters: ', newStateC);
       return newStateC;

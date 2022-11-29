@@ -6,7 +6,7 @@ import charactersReducer, {
   initialCharactersState,
   TOGGLE_LOADING,
 } from './charactersReducer';
-import { IFetchError, IFetchSuccess } from '../../interfaces';
+import { IFetchError, IFetchSuccess, ISortInfo } from '../../interfaces';
 import { getCharactersBySearch } from '../../utils/api';
 
 export const CharactersContext = createContext(initialCharactersState);
@@ -24,12 +24,18 @@ const CharactersProvider = (props: Props) => {
     });
   };
 
-  const updateCharacters = async (searchTerm: string, page: number, limit: number) => {
+  const updateCharacters = async (
+    searchTerm: string,
+    page: number,
+    limit: number,
+    sortInfo: ISortInfo | null
+  ) => {
     toggleLoading();
     const charactersInfo: IFetchSuccess | IFetchError = (await getCharactersBySearch(
       page,
       limit,
-      searchTerm
+      searchTerm,
+      sortInfo
     )) as IFetchSuccess | IFetchError;
 
     if (
@@ -64,6 +70,7 @@ const CharactersProvider = (props: Props) => {
     characters: state.characters,
     searchTerm: state.searchTerm,
     paginateInfo: state.paginateInfo,
+    sortInfo: state.sortInfo,
     isLoading: state.isLoading,
     toggleLoading,
     updateCharacters,

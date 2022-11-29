@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import './Cards-list.scss';
 import useCharacters from '../../../hooks/useCharacters';
-import { ICharacter, NotifyType } from '../../../interfaces';
+import { ESortDirection, ESortField, ICharacter, NotifyType } from '../../../interfaces';
 import Card from '../Card/Card';
 import Notify from '../Notify/Notify';
 import Spinner from '../Spinner/Spinner';
 
 const CardsList = () => {
-  const { characters, isLoading, paginateInfo, searchTerm, updateCharacters } = useCharacters();
+  const { characters, isLoading, paginateInfo, searchTerm, sortInfo, updateCharacters } =
+    useCharacters();
 
   const [isFirstRender, setIsFirstRender] = useState<boolean>(true);
 
@@ -73,13 +74,30 @@ const CardsList = () => {
 
   const handleChangeLimit = async (limit: number) => {
     if (updateCharacters) {
-      await updateCharacters(searchTerm, 1, limit);
+      await updateCharacters(searchTerm, 1, limit, sortInfo);
     }
   };
 
   const handleClickPagination = async (page: number) => {
     if (updateCharacters) {
-      await updateCharacters(searchTerm, page, paginateInfo.limit);
+      await updateCharacters(searchTerm, page, paginateInfo.limit, sortInfo);
+    }
+  };
+
+  const handleClickSort = async (el: HTMLDivElement | null) => {
+    const field = el?.innerText as ESortField;
+    const direction = el?.classList.contains(ESortDirection.asc)
+      ? ESortDirection.desc
+      : ESortDirection.asc;
+    const sortInfo = el
+      ? {
+          field,
+          direction,
+        }
+      : el;
+
+    if (updateCharacters) {
+      await updateCharacters(searchTerm, paginateInfo.currentPage, paginateInfo.limit, sortInfo);
     }
   };
 
@@ -99,25 +117,6 @@ const CardsList = () => {
       </select>
     </>
   );
-
-  // <div className="pagination">
-  //   {paginationLinks.map((link, index, links) => {
-  //     console.log(link);
-  //     const activeClazz = link === paginateInfo.currentPage ? 'active' : '';
-  //     const pointsClazz = index > 0 && links[index - 1] < links[index] - 1 ? 'points' : '';
-  //     return (
-  //       <div
-  //         key={crypto.randomUUID()}
-  //         onClick={async (e) => {
-  //           await handleClickPagination(+(e.target as HTMLElement).innerText);
-  //         }}
-  //         className={`${activeClazz} ${pointsClazz}`}
-  //       >
-  //         {link}
-  //       </div>
-  //     );
-  //   })}
-  // </div>
 
   const paginateInfoNav = Array.isArray(characters) && characters.length > 0 && (
     <div className="pagination">
@@ -142,6 +141,15 @@ const CardsList = () => {
     </div>
   );
 
+  const sortNameClazz = sortInfo?.field === ESortField.name ? `active ${sortInfo.direction}` : '';
+  const sortSpeciesClazz =
+    sortInfo?.field === ESortField.species ? `active ${sortInfo.direction}` : '';
+  const sortImageClazz = sortInfo?.field === ESortField.image ? `active ${sortInfo.direction}` : '';
+  const sortDefaultClazz = !sortInfo ? 'active' : '';
+
+  console.log('sortInfo:', sortInfo);
+  console.log('sortNameClazz:', sortNameClazz);
+
   return (
     <>
       {!isFirstRender ? (
@@ -156,7 +164,44 @@ const CardsList = () => {
             type={NotifyType.ERROR}
           />
           <h1>Harry Potter characters</h1>
-          {limitResults}
+          {Array.isArray(characters) && characters.length > 0 && (
+            <div style={{ display: 'flex', justifyContent: 'center', marginRight: '30px' }}>
+              <div>Sort by:</div>
+              <div
+                className={`sort-field ${sortNameClazz}`}
+                onClick={async (e) => {
+                  await handleClickSort(e.target as HTMLDivElement);
+                }}
+              >
+                {ESortField.name}
+              </div>
+              <div
+                className={`sort-field ${sortSpeciesClazz}`}
+                onClick={async (e) => {
+                  await handleClickSort(e.target as HTMLDivElement);
+                }}
+              >
+                {ESortField.species}
+              </div>
+              <div
+                className={`sort-field ${sortImageClazz}`}
+                onClick={async (e) => {
+                  await handleClickSort(e.target as HTMLDivElement);
+                }}
+              >
+                {ESortField.image}
+              </div>
+              <div
+                className={`sort-field ${sortDefaultClazz}`}
+                onClick={async (e) => {
+                  await handleClickSort(null);
+                }}
+              >
+                {ESortField.default}
+              </div>
+              <div style={{ marginLeft: '30px' }}>{limitResults}</div>
+            </div>
+          )}
           {isLoading ? (
             <div className="spinner" style={{ position: 'absolute' }}>
               <Spinner isLoading />
