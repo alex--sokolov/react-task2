@@ -6,13 +6,11 @@
 
 ### `git checkout "custom-app-state"`
 
-# 3. rename env.txt to .env
-
-# 4. install dependencies
+# 3. install dependencies
 
 ### `yarn install`
 
-#5. start project
+# 4. start project
 
 ### `yarn start`
 
