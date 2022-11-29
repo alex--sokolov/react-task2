@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import './Search-bar.scss';
 import useCharacters from '../../../hooks/useCharacters';
 
@@ -14,19 +14,30 @@ const SearchBar = () => {
     }
   };
 
-  useEffect(() => {
-    (async () => {
-      const searchValue = localStorage.getItem('searchValue');
-      const search = searchValue ? JSON.parse(searchValue) : '';
-      if (updateSearchTerm) {
-        await updateSearchTerm(search);
-      }
+  const updateInitialState = async () => {
+    const searchValue = localStorage.getItem('searchValue');
+    const search = searchValue ? JSON.parse(searchValue) : '';
+    if (updateSearchTerm) {
+      await updateSearchTerm(search);
+    }
 
-      if (Array.isArray(characters) && characters.length === 0 && updateCharacters) {
-        await updateCharacters(search, paginateInfo.currentPage, paginateInfo.limit, sortInfo);
-      }
-    })();
-  }, []);
+    if (Array.isArray(characters) && characters.length === 0 && updateCharacters) {
+      await updateCharacters(search, paginateInfo.currentPage, paginateInfo.limit, sortInfo);
+    }
+  };
+
+  const setStorageState = useCallback(updateInitialState, [
+    characters,
+    paginateInfo.currentPage,
+    paginateInfo.limit,
+    sortInfo,
+    updateCharacters,
+    updateSearchTerm,
+  ]);
+
+  useEffect(() => {
+    setStorageState().catch(console.error);
+  }, [setStorageState]);
 
   useEffect(() => {
     localStorage.setItem('searchValue', JSON.stringify(searchTerm));

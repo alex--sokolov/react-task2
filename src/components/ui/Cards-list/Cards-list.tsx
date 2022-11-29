@@ -193,7 +193,7 @@ const CardsList = () => {
               </div>
               <div
                 className={`sort-field ${sortDefaultClazz}`}
-                onClick={async (e) => {
+                onClick={async () => {
                   await handleClickSort(null);
                 }}
               >
