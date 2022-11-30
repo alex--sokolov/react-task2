@@ -7,12 +7,11 @@ export const isValidOnlyEnglishSymbols = (str: string): boolean => {
   return onlyEn.test(str);
 };
 export const isValidDate = (dateRelease: string, minDate: string, maxDate: string): boolean => {
-  const timeRelease = new Date(dateRelease).getTime();
+  const dateTransformed =
+    dateRelease.length === 10 ? dateRelease.split('/').reverse().join('-') : dateRelease;
+  const timeRelease = new Date(dateTransformed).getTime();
   const minTime = new Date(minDate).getTime();
   const maxTime = new Date(maxDate).getTime();
   return timeRelease >= minTime && timeRelease <= maxTime;
 };
-export const isValidGenre = (genre: Genre) => {
-  console.log('genre', genre);
-  return genre !== Genre.default;
-};
+export const isValidGenre = (genre: Genre) => genre !== Genre.default;

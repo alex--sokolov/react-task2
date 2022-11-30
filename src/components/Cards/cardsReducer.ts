@@ -10,17 +10,17 @@ const cardsReducer = (state: IStateCards, action: IActionCards): IStateCards => 
   const { type, payload } = action;
   switch (type) {
     case ADD_CARD:
-      const newCards: IForm[] = state.cards;
       if (payload) {
-        newCards.push(payload);
+        const newCard = payload;
+        newCard.id = state.cards.length + 1;
+        const newCards: IForm[] = state.cards;
+        newCards.push(newCard);
+        return {
+          ...state,
+          cards: newCards,
+        };
       }
-
-      console.log('newCards: ', newCards);
-
-      return {
-        ...state,
-        cards: newCards,
-      };
+      return state;
     default:
       return state;
   }

@@ -80,7 +80,7 @@ export enum FormFields {
 }
 
 export interface IForm {
-  id: number;
+  id?: number;
   title: string;
   overview: string;
   country: string;

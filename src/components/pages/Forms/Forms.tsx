@@ -68,8 +68,6 @@ const Forms = () => {
     updateIsFormDisabled,
   } = useFormData();
 
-  const [id, setId] = useState<number>(1);
-
   const { cards, addCard } = useCards();
 
   const {
@@ -83,7 +81,6 @@ const Forms = () => {
     formState: { errors, isSubmitSuccessful, isDirty, isSubmitted },
   } = useForm({
     defaultValues: {
-      id: id,
       title,
       overview,
       country,
@@ -107,7 +104,6 @@ const Forms = () => {
     if (addCard) {
       addCard(newCard);
     }
-    setId(id + 1);
   };
 
   useEffect(() => {
@@ -117,12 +113,11 @@ const Forms = () => {
           resetForm();
         }
         reset({
-          id: id,
           ...initialFormValues,
         });
       }, 2000);
     }
-  }, [id, isSubmitSuccessful, reset, resetForm]);
+  }, [isSubmitSuccessful, reset, resetForm]);
 
   const showErrors = (errors: MultipleFieldErrors | undefined, isLogo = false) =>
     errors

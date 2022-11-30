@@ -16,8 +16,6 @@ const CardsList = () => {
 
   const [paginationLinks, setPaginationLinks] = useState<number[]>([1]);
 
-  console.log('PAGINATION: ', paginationLinks);
-
   useEffect(() => {
     setIsFirstRender(false);
   }, []);
@@ -121,7 +119,6 @@ const CardsList = () => {
   const paginateInfoNav = Array.isArray(characters) && characters.length > 0 && (
     <div className="pagination">
       {paginationLinks.map((link, index, links) => {
-        console.log(link);
         const activeClazz = link === paginateInfo.currentPage ? 'active' : '';
         return (
           <div key={crypto.randomUUID()} style={{ display: 'flex' }}>
@@ -146,9 +143,6 @@ const CardsList = () => {
     sortInfo?.field === ESortField.species ? `active ${sortInfo.direction}` : '';
   const sortImageClazz = sortInfo?.field === ESortField.image ? `active ${sortInfo.direction}` : '';
   const sortDefaultClazz = !sortInfo ? 'active' : '';
-
-  console.log('sortInfo:', sortInfo);
-  console.log('sortNameClazz:', sortNameClazz);
 
   return (
     <>

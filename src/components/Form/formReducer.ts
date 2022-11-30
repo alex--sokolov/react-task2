@@ -67,8 +67,6 @@ const formReducer = (state: IFormState, action: IActionForms): IFormState => {
         logo: payload as string | undefined,
       };
     case RESET_FORM:
-      console.log('initialFormState: ', initialFormState);
-
       return {
         ...initialFormState,
       };
