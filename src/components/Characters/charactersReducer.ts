@@ -25,29 +25,22 @@ export const TOGGLE_LOADING = 'TOGGLE_LOADING';
 
 const charactersReducer = (state: IStateCharacter, action: IActionCharacters): IStateCharacter => {
   const { type, payload } = action;
-  console.log('action type: ', type, !state.isLoading);
   switch (type) {
     case CHANGE_CHARACTERS_SUCCESS:
-      const newStateC = {
+      return {
         ...state,
         characters: (payload as IFetchSuccess)?.data as ICharacter[],
         paginateInfo: (payload as IFetchSuccess)?.paginateInfo || state.paginateInfo,
         sortInfo: (payload as IFetchSuccess)?.sortInfo,
       };
-      console.log('newState changecharacters: ', newStateC);
-      return newStateC;
     case CHANGE_CHARACTERS_ERROR:
-      const newStateE = {
+      return {
         ...state,
         characters: payload as IFetchError,
       };
-      console.log('newState changecharacters: ', newStateE);
-      return newStateE;
     case CHANGE_SEARCH_TERM:
       return { ...state, searchTerm: payload as string };
     case TOGGLE_LOADING:
-      const newState = { ...state, isLoading: !state.isLoading };
-      console.log('newState: ', newState);
       return { ...state, isLoading: !state.isLoading };
     default:
       return state;

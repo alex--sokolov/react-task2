@@ -2,7 +2,14 @@ import React, { useEffect, useRef, useState } from 'react';
 import { MultipleFieldErrors, useForm, Controller } from 'react-hook-form';
 import './Forms.scss';
 import DatePicker, { DateObject } from 'react-multi-date-picker';
-import { FormFields, Genre, IForm, NotifyType, NotifyMessage } from '../../../interfaces';
+import {
+  FormFields,
+  Genre,
+  IForm,
+  NotifyType,
+  NotifyMessage,
+  IFormState,
+} from '../../../interfaces';
 import {
   isValidDate,
   isValidGenre,
@@ -14,6 +21,8 @@ import { readFileAsDataURL } from '../../../utils/readFileAsDataUrl';
 import FormsCards from '../../ui/Forms-cards/Forms-cards';
 import Spinner from '../../ui/Spinner/Spinner';
 import Notify from '../../ui/Notify/Notify';
+import useFormData from '../../../hooks/useFormData';
+import useCards from '../../../hooks/useCards';
 
 const TITLE_MIN_LENGTH = 3;
 const TITLE_MAX_LENGTH = 30;
@@ -24,7 +33,7 @@ const COUNTRY_MAX_LENGTH = 20;
 const MIN_DATE = '1997-01-01';
 const MAX_DATE = '2030-12-31';
 
-const initialFormValues: Omit<IForm, 'id'> = {
+const initialFormValues: IFormState = {
   title: '',
   overview: '',
   country: '',
@@ -33,13 +42,37 @@ const initialFormValues: Omit<IForm, 'id'> = {
   isConfirmPolitics: false,
   adult: false,
   logo: undefined,
+  isFormDisabled: false,
 };
 
 const Forms = () => {
+  const {
+    title,
+    overview,
+    country,
+    releaseDate,
+    genre,
+    isConfirmPolitics,
+    adult,
+    logo,
+    isFormDisabled,
+    updateTitle,
+    updateOverview,
+    updateCountry,
+    updateReleaseDate,
+    updateGenre,
+    updateIsConfirmPolitics,
+    updateAdult,
+    updateLogo,
+    resetForm,
+    updateIsFormDisabled,
+  } = useFormData();
+
   const [id, setId] = useState<number>(1);
 
+  const { cards, addCard } = useCards();
+
   const {
-    register,
     handleSubmit,
     reset,
     control,
@@ -51,12 +84,18 @@ const Forms = () => {
   } = useForm({
     defaultValues: {
       id: id,
-      ...initialFormValues,
+      title,
+      overview,
+      country,
+      releaseDate,
+      genre,
+      isConfirmPolitics,
+      adult,
+      logo,
     },
     criteriaMode: 'all',
   });
 
-  const [cards, setCards] = useState<IForm[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const fileInput = useRef<HTMLInputElement | null>(null);
 
@@ -65,20 +104,25 @@ const Forms = () => {
       ...data,
       releaseDate: new Date(data.releaseDate).toLocaleString().slice(0, 10),
     };
-    setCards([...cards, newCard]);
+    if (addCard) {
+      addCard(newCard);
+    }
     setId(id + 1);
   };
 
   useEffect(() => {
     if (isSubmitSuccessful) {
       setTimeout(() => {
+        if (resetForm) {
+          resetForm();
+        }
         reset({
           id: id,
           ...initialFormValues,
         });
       }, 2000);
     }
-  }, [id, isSubmitSuccessful, reset]);
+  }, [id, isSubmitSuccessful, reset, resetForm]);
 
   const showErrors = (errors: MultipleFieldErrors | undefined, isLogo = false) =>
     errors
@@ -97,6 +141,7 @@ const Forms = () => {
     setIsLoading(false);
     return logo ? logo.toString() : undefined;
   };
+
   const watchTitle = watch('title');
   const watchOverview = watch('overview');
   const watchCountry = watch('country');
@@ -131,6 +176,14 @@ const Forms = () => {
     watchAdult,
   ]);
 
+  useEffect(() => {
+    if (isDirty && isFormDisabled) {
+      if (updateIsFormDisabled) {
+        updateIsFormDisabled(false);
+      }
+    }
+  }, [isDirty, isFormDisabled, updateIsFormDisabled]);
+
   return (
     <section className="forms">
       <Notify
@@ -143,9 +196,10 @@ const Forms = () => {
         <div className="field-errors">{showErrors(errors?.title?.types)}</div>
         <div className="form__field-row">
           <label>Title:</label>
-          <input
-            type="text"
-            {...register(FormFields.title, {
+          <Controller
+            control={control}
+            name={FormFields.title}
+            rules={{
               required: {
                 value: true,
                 message: `This is required`,
@@ -158,16 +212,30 @@ const Forms = () => {
                   isValidMin(v, TITLE_MIN_LENGTH) ||
                   `Must be more than ${TITLE_MIN_LENGTH} symbols`,
               },
-            })}
-            className={errors.title ? 'error' : ''}
-            data-testid="form-title"
+            }}
+            render={({ field: { onChange, name } }) => (
+              <input
+                type="text"
+                value={title}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  onChange({ target: { name, value: value } });
+                  if (updateTitle) {
+                    updateTitle(value);
+                  }
+                }}
+                className={errors.title ? 'error' : ''}
+              />
+            )}
           />
         </div>
         <div className="field-errors">{showErrors(errors?.overview?.types)}</div>
         <div className="form__field-row">
           <label>Overview:</label>
-          <textarea
-            {...register(FormFields.overview, {
+          <Controller
+            control={control}
+            name={FormFields.overview}
+            rules={{
               required: {
                 value: true,
                 message: `This is required`,
@@ -180,18 +248,30 @@ const Forms = () => {
                   isValidMin(v, OVERVIEW_MIN_LENGTH) ||
                   `Must be more than ${OVERVIEW_MIN_LENGTH} symbols`,
               },
-            })}
-            className={errors.overview ? 'error' : ''}
-            data-testid="form-overview"
+            }}
+            render={({ field: { onChange, name } }) => (
+              <textarea
+                value={overview}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  onChange({ target: { name, value: value } });
+                  if (updateOverview) {
+                    updateOverview(value);
+                  }
+                }}
+                className={errors.overview ? 'error' : ''}
+              />
+            )}
           />
         </div>
 
         <div className="field-errors">{showErrors(errors?.country?.types)}</div>
         <div className="form__field-row">
           <label>Country:</label>
-          <input
-            type="text"
-            {...register(FormFields.country, {
+          <Controller
+            control={control}
+            name={FormFields.country}
+            rules={{
               required: {
                 value: true,
                 message: `This is required`,
@@ -206,9 +286,21 @@ const Forms = () => {
                 onlyEnglish: (v) =>
                   isValidOnlyEnglishSymbols(v) || 'Must contain only english symbols',
               },
-            })}
-            className={errors.country ? 'error' : ''}
-            data-testid="form-country"
+            }}
+            render={({ field: { onChange, name } }) => (
+              <input
+                type="text"
+                value={country}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  onChange({ target: { name, value: value } });
+                  if (updateCountry) {
+                    updateCountry(value);
+                  }
+                }}
+                className={errors.country ? 'error' : ''}
+              />
+            )}
           />
         </div>
         <div className="field-errors">{showErrors(errors?.releaseDate?.types)}</div>
@@ -216,7 +308,7 @@ const Forms = () => {
           <label>Release date:</label>
           <Controller
             control={control}
-            name="releaseDate"
+            name={FormFields.releaseDate}
             rules={{
               required: {
                 value: true,
@@ -228,28 +320,30 @@ const Forms = () => {
                   `Must be between ${MIN_DATE} and ${MAX_DATE} date`,
               },
             }}
-            render={({ field: { onChange, name, value } }) => (
-              <>
-                <DatePicker
-                  value={value || ''}
-                  onChange={(date) =>
-                    onChange({ target: { name, value: (date as DateObject)?.toDate?.() } })
+            render={({ field: { onChange, name } }) => (
+              <DatePicker
+                value={releaseDate || ''}
+                onChange={(date) => {
+                  onChange({ target: { name, value: (date as DateObject)?.toDate() } });
+                  if (updateReleaseDate) {
+                    updateReleaseDate((date as DateObject)?.format());
                   }
-                  format="DD/MM/YYYY"
-                  placeholder="DD/MM/YYYY"
-                  minDate={MIN_DATE}
-                  maxDate={MAX_DATE}
-                />
-              </>
+                }}
+                format="DD/MM/YYYY"
+                placeholder="DD/MM/YYYY"
+                minDate={MIN_DATE}
+                maxDate={MAX_DATE}
+              />
             )}
           />
         </div>
         <div className="field-errors">{showErrors(errors?.genre?.types)}</div>
         <div className="form__field-row">
           <label>Genre:</label>
-          <select
-            className={errors?.genre ? 'error' : ''}
-            {...register(FormFields.genre, {
+          <Controller
+            control={control}
+            name={FormFields.genre}
+            rules={{
               required: {
                 value: true,
                 message: `This is required`,
@@ -257,26 +351,39 @@ const Forms = () => {
               validate: {
                 isValidGenre: (v) => isValidGenre(v) || `Genre is not valid`,
               },
-            })}
-            data-testid="form-genre"
-          >
-            <option value="default" disabled>
-              Choose an option
-            </option>
-            <option value={Genre.comedy}>{Genre.comedy}</option>
-            <option value={Genre.horror}>{Genre.horror}</option>
-            <option value={Genre.action}>{Genre.action}</option>
-            <option value={Genre.crime}>{Genre.crime}</option>
-            <option value={Genre.thriller}>{Genre.thriller}</option>
-            <option value={Genre.drama}>{Genre.drama}</option>
-          </select>
+            }}
+            render={({ field: { onChange, name } }) => (
+              <select
+                className={errors?.genre ? 'error' : ''}
+                value={genre}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  onChange({ target: { name, value: value } });
+                  if (updateGenre) {
+                    updateGenre(value as Genre);
+                  }
+                }}
+              >
+                <option value="default" disabled>
+                  Choose an option
+                </option>
+                <option value={Genre.comedy}>{Genre.comedy}</option>
+                <option value={Genre.horror}>{Genre.horror}</option>
+                <option value={Genre.action}>{Genre.action}</option>
+                <option value={Genre.crime}>{Genre.crime}</option>
+                <option value={Genre.thriller}>{Genre.thriller}</option>
+                <option value={Genre.drama}>{Genre.drama}</option>
+              </select>
+            )}
+          />
         </div>
         <div className="field-errors">{showErrors(errors?.isConfirmPolitics?.types)}</div>
         <div className="form__field-row policy">
           <div>
-            <input
-              type="checkbox"
-              {...register(FormFields.isConfirmPolitics, {
+            <Controller
+              control={control}
+              name={FormFields.isConfirmPolitics}
+              rules={{
                 required: {
                   value: true,
                   message: `This is required`,
@@ -284,32 +391,58 @@ const Forms = () => {
                 validate: {
                   mustBeConfirmed: (v) => !!v || 'Movie must be censored!',
                 },
-              })}
-              id={FormFields.isConfirmPolitics}
-              className={errors?.isConfirmPolitics ? 'error' : ''}
+              }}
+              render={({ field: { onChange, name } }) => (
+                <input
+                  type="checkbox"
+                  checked={isConfirmPolitics}
+                  onChange={() => {
+                    onChange({ target: { name, value: !isConfirmPolitics } });
+                    if (updateIsConfirmPolitics) {
+                      updateIsConfirmPolitics(!isConfirmPolitics);
+                    }
+                  }}
+                  id={FormFields.isConfirmPolitics}
+                  className={errors?.isConfirmPolitics ? 'error' : ''}
+                />
+              )}
             />
           </div>
           <label htmlFor={FormFields.isConfirmPolitics}>This movie is censored</label>
         </div>
         <div className="switcher status">
           <div>Adult:</div>
-          <div className="switch">
-            <input
-              type="checkbox"
-              {...register(FormFields.adult)}
-              id={FormFields.adult}
-              name={FormFields.adult}
-            />
-            <label htmlFor={FormFields.adult} />
-          </div>
+
+          <Controller
+            control={control}
+            name={FormFields.adult}
+            render={({ field: { onChange, name } }) => (
+              <div className="switch">
+                <input
+                  type="checkbox"
+                  checked={adult}
+                  onChange={() => {
+                    onChange({ target: { name, value: !adult } });
+                    if (updateAdult) {
+                      updateAdult(!adult);
+                    }
+                  }}
+                  id={FormFields.adult}
+                  name={FormFields.adult}
+                />
+                <label htmlFor={FormFields.adult} />
+              </div>
+            )}
+          />
         </div>
+
         <div className="field-errors">{showErrors(errors?.logo?.types, true)}</div>
         <div className="form__field-row file">
           <label>Load picture:</label>
 
           <Controller
             control={control}
-            name="logo"
+            name={FormFields.logo}
             rules={{
               required: {
                 value: true,
@@ -326,13 +459,15 @@ const Forms = () => {
                   onChange={async (e) => {
                     const logo = await handleChangeImage(e);
                     onChange({ target: { name, value: logo } });
+                    if (updateLogo) {
+                      updateLogo(logo);
+                    }
                     await trigger('logo');
                   }}
                   accept="image/*"
                   className={errors?.logo ? 'error' : ''}
                   style={{ display: 'none' }}
                   ref={fileInput}
-                  data-testid="form-upload"
                 />
                 <div className="btn-add-file" onClick={() => fileInput.current?.click()}>
                   Pick file
@@ -343,7 +478,7 @@ const Forms = () => {
         </div>
         <input
           type="submit"
-          disabled={!isDirty || !!Object.keys(errors).length}
+          disabled={!!Object.keys(errors).length || isFormDisabled}
           data-testid="form-submit-btn"
         />
       </form>

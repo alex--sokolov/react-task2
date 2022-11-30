@@ -6,14 +6,10 @@ import charactersReducer, {
   initialCharactersState,
   TOGGLE_LOADING,
 } from './charactersReducer';
-import { IFetchError, IFetchSuccess, ISortInfo } from '../../interfaces';
+import { IFetchError, IFetchSuccess, ISortInfo, Props } from '../../interfaces';
 import { getCharactersBySearch } from '../../utils/api';
 
 export const CharactersContext = createContext(initialCharactersState);
-
-interface Props {
-  children: JSX.Element[] | JSX.Element;
-}
 
 const CharactersProvider = (props: Props) => {
   const [state, dispatch] = useReducer(charactersReducer, initialCharactersState);

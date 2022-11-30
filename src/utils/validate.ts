@@ -12,4 +12,7 @@ export const isValidDate = (dateRelease: string, minDate: string, maxDate: strin
   const maxTime = new Date(maxDate).getTime();
   return timeRelease >= minTime && timeRelease <= maxTime;
 };
-export const isValidGenre = (genre: Genre) => genre !== Genre.default;
+export const isValidGenre = (genre: Genre) => {
+  console.log('genre', genre);
+  return genre !== Genre.default;
+};

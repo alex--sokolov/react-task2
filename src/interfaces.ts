@@ -91,6 +91,20 @@ export interface IForm {
   logo: string | undefined;
 }
 
+export interface IFormState extends Omit<IForm, 'id'> {
+  isFormDisabled: boolean;
+  updateTitle?: (title: string) => void;
+  updateOverview?: (overview: string) => void;
+  updateCountry?: (country: string) => void;
+  updateReleaseDate?: (releaseDate: string) => void;
+  updateGenre?: (genre: Genre) => void;
+  updateIsConfirmPolitics?: (isConfirmPolitics: boolean) => void;
+  updateAdult?: (adult: boolean) => void;
+  updateLogo?: (logo: string | undefined) => void;
+  resetForm?: () => void;
+  updateIsFormDisabled?: (value: boolean) => void;
+}
+
 export type IDateTypeField = 'text' | 'date';
 
 export interface FieldError {
@@ -195,8 +209,6 @@ export enum ESortField {
 }
 
 export interface ISortInfo {
-  // field: ESortField.name | ESortField.species | ESortField.image;
-  // direction: ESortDirection.desc | ESortDirection.asc;
   field: ESortField;
   direction: ESortDirection;
 }
@@ -217,10 +229,20 @@ export interface IStateCharacter {
   updateSearchTerm?: (searchTerm: string) => void;
 }
 
+export interface IStateCards {
+  cards: IForm[];
+  addCard?: (card: IForm) => void;
+}
+
 export interface IFetchSuccess {
   data: ICharacter[];
   paginateInfo: IPaginateInfo | null;
   sortInfo: ISortInfo | null;
+}
+
+export interface IActionForms {
+  type: string;
+  payload?: string | Genre | boolean | undefined;
 }
 
 export interface IActionCharacters {
@@ -228,6 +250,15 @@ export interface IActionCharacters {
   payload?: IFetchSuccess | IFetchError | string;
 }
 
+export interface IActionCards {
+  type: string;
+  payload?: IForm;
+}
+
 export enum Errors {
   'Not Found' = 404,
+}
+
+export interface Props {
+  children: JSX.Element[] | JSX.Element;
 }

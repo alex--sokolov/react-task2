@@ -24,8 +24,8 @@ const FormsCard = (props: { card: IForm }) => {
               ? MovieStatus.released
               : MovieStatus.waiting}
           </div>
-          <div className={FormFields.releaseDate}>
-            <span>Release date:</span> {card.releaseDate}
+          <div className={FormFields.releaseDate as string}>
+            <span>Release date:</span> {card.releaseDate.toString()}
           </div>
           <div className={FormFields.genre}>
             <span>{FormFields.genre}:</span> {card.genre}
