@@ -5,10 +5,19 @@ import { ESortDirection, ESortField, ICharacter, NotifyType } from '../../../int
 import Card from '../Card/Card';
 import Notify from '../Notify/Notify';
 import Spinner from '../Spinner/Spinner';
+import { useSelector } from 'react-redux';
+import { CharactersRootState, useCharactersDispatch } from '../../../store';
+import { updateCharacters } from '../../../store/characterSlice';
 
 const CardsList = () => {
-  const { characters, isLoading, paginateInfo, searchTerm, sortInfo, updateCharacters } =
-    useCharacters();
+  // const { characters, isLoading, paginateInfo, searchTerm, sortInfo, updateCharacters } =
+  //   useCharacters();
+
+  const { searchTerm, isLoading, characters, paginateInfo, sortInfo } = useSelector(
+    (state: CharactersRootState) => state.characters
+  );
+
+  const dispatchCharacters = useCharactersDispatch();
 
   const [isFirstRender, setIsFirstRender] = useState<boolean>(true);
 
@@ -71,15 +80,13 @@ const CardsList = () => {
   );
 
   const handleChangeLimit = async (limit: number) => {
-    if (updateCharacters) {
-      await updateCharacters(searchTerm, 1, limit, sortInfo);
-    }
+    await dispatchCharacters(updateCharacters({ page: 1, limit, search: searchTerm, sortInfo }));
   };
 
   const handleClickPagination = async (page: number) => {
-    if (updateCharacters) {
-      await updateCharacters(searchTerm, page, paginateInfo.limit, sortInfo);
-    }
+    await dispatchCharacters(
+      updateCharacters({ page, limit: paginateInfo.limit, search: searchTerm, sortInfo })
+    );
   };
 
   const handleClickSort = async (el: HTMLDivElement | null) => {
@@ -94,9 +101,14 @@ const CardsList = () => {
         }
       : el;
 
-    if (updateCharacters) {
-      await updateCharacters(searchTerm, paginateInfo.currentPage, paginateInfo.limit, sortInfo);
-    }
+    await dispatchCharacters(
+      updateCharacters({
+        page: paginateInfo.currentPage,
+        limit: paginateInfo.limit,
+        search: searchTerm,
+        sortInfo,
+      })
+    );
   };
 
   const limitResults = Array.isArray(characters) && characters.length > 0 && (
