@@ -11,27 +11,31 @@ import AboutPage from './components/pages/About/About';
 import Page404 from './components/pages/Page404/page404';
 import FormProvider from './components/Form/FormContext';
 import CardsProvider from './components/Cards/CardsContext';
+import { Provider } from 'react-redux';
+import store from './store';
 
 function App() {
   return (
     <div className="app-container" data-testid="app">
-      <CharactersProvider>
-        <CardsProvider>
-          <FormProvider>
-            <Header />
-            <Routes>
-              <Route index element={<Main />} />
-              <Route path="/">
+      <Provider store={store}>
+        <CharactersProvider>
+          <CardsProvider>
+            <FormProvider>
+              <Header />
+              <Routes>
                 <Route index element={<Main />} />
-                <Route path="/character/:id" element={<Character />} />
-              </Route>
-              <Route path="/forms" element={<Forms />} />
-              <Route path="/about" element={<AboutPage />} />
-              <Route path="*" element={<Page404 />} />
-            </Routes>
-          </FormProvider>
-        </CardsProvider>
-      </CharactersProvider>
+                <Route path="/">
+                  <Route index element={<Main />} />
+                  <Route path="/character/:id" element={<Character />} />
+                </Route>
+                <Route path="/forms" element={<Forms />} />
+                <Route path="/about" element={<AboutPage />} />
+                <Route path="*" element={<Page404 />} />
+              </Routes>
+            </FormProvider>
+          </CardsProvider>
+        </CharactersProvider>
+      </Provider>
     </div>
   );
 }

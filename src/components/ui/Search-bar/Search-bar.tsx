@@ -1,10 +1,25 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import './Search-bar.scss';
 import useCharacters from '../../../hooks/useCharacters';
+import { updateSearchTerm } from '../../../store/characterSlice';
+import { CharactersRootState, useCharactersDispatch } from '../../../store';
 
 const SearchBar = () => {
-  const { searchTerm, characters, paginateInfo, sortInfo, updateSearchTerm, updateCharacters } =
-    useCharacters();
+  // const { searchTerm, characters, paginateInfo, sortInfo, updateSearchTerm, updateCharacters } =
+  //   useCharacters();
+
+  const { updateCharacters } = useCharacters();
+
+  const { searchTerm, characters, paginateInfo, sortInfo } = useSelector(
+    (state: CharactersRootState) => state.characters
+  );
+
+  console.log('characters', characters);
+
+  const dispatchCharacters = useCharactersDispatch();
+
+  const updateSearch = (search: string) => dispatchCharacters(updateSearchTerm(search));
 
   const [initialState] = useState({
     characters,
@@ -26,9 +41,11 @@ const SearchBar = () => {
   const updateInitialState = async () => {
     const searchValue = localStorage.getItem('searchValue');
     const search = searchValue ? JSON.parse(searchValue) : '';
-    if (initialState.updateSearchTerm) {
-      await initialState.updateSearchTerm(search);
-    }
+    // if (initialState.updateSearchTerm) {
+    //   await initialState.updateSearchTerm(search);
+    // }
+
+    updateSearch(search);
 
     if (
       Array.isArray(initialState.characters) &&
@@ -64,10 +81,8 @@ const SearchBar = () => {
         placeholder="Search"
         value={searchTerm}
         onChange={(e) => {
-          if (updateSearchTerm) {
-            console.log('searchTerm: ', e.target.value);
-            updateSearchTerm(e.target.value);
-          }
+          console.log('searchTerm: ', e.target.value);
+          updateSearch(e.target.value);
         }}
         onKeyDown={(e) => handleKeyPress(e)}
       />
