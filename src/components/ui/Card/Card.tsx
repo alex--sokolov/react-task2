@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom';
 
 const Card = (props: { character: ICharacter }) => {
   const { character } = props;
-
   const uniqueUrl = useMemo(() => {
     const altName = character.alternate_names.length > 0 ? '-' + character.alternate_names[0] : '';
     return '/character/' + character.name + altName;

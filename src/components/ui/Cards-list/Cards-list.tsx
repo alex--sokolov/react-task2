@@ -1,23 +1,23 @@
-import React, { useEffect, useState } from 'react';
 import './Cards-list.scss';
-import useCharacters from '../../../hooks/useCharacters';
-import { ESortDirection, ESortField, ICharacter, NotifyType } from '../../../interfaces';
+
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+
 import Card from '../Card/Card';
 import Notify from '../Notify/Notify';
 import Spinner from '../Spinner/Spinner';
-import { useSelector } from 'react-redux';
-import { CharactersRootState, useCharactersDispatch } from '../../../store';
-import { updateCharacters } from '../../../store/characterSlice';
+
+import useCharactersReducer from '../../../hooks/useCharactersReducer';
+import { CharactersRootState } from '../../../store';
+import { ESortDirection, ESortField, ICharacter, NotifyType } from '../../../interfaces';
+import getPaginateLinks from '../../../utils/getPaginateLinks';
 
 const CardsList = () => {
-  // const { characters, isLoading, paginateInfo, searchTerm, sortInfo, updateCharacters } =
-  //   useCharacters();
-
   const { searchTerm, isLoading, characters, paginateInfo, sortInfo } = useSelector(
     (state: CharactersRootState) => state.characters
   );
 
-  const dispatchCharacters = useCharactersDispatch();
+  const { updateCharacters } = useCharactersReducer();
 
   const [isFirstRender, setIsFirstRender] = useState<boolean>(true);
 
@@ -30,24 +30,7 @@ const CardsList = () => {
   }, []);
 
   useEffect(() => {
-    const current = paginateInfo.currentPage;
-    const max = paginateInfo.maxPage;
-    const pagLinks = [1];
-
-    if (current >= 2) {
-      pagLinks.push(current);
-    }
-    if (current > 2) {
-      pagLinks.push(current - 1);
-    }
-    if (current < max) {
-      pagLinks.push(max);
-    }
-    if (current < max - 1) {
-      pagLinks.push(current + 1);
-    }
-    pagLinks.sort((a, b) => a - b);
-    setPaginationLinks(pagLinks);
+    setPaginationLinks(getPaginateLinks(paginateInfo.currentPage, paginateInfo.maxPage));
   }, [paginateInfo.currentPage, paginateInfo.maxPage]);
 
   useEffect(() => {
@@ -80,13 +63,11 @@ const CardsList = () => {
   );
 
   const handleChangeLimit = async (limit: number) => {
-    await dispatchCharacters(updateCharacters({ page: 1, limit, search: searchTerm, sortInfo }));
+    await updateCharacters({ page: 1, limit, search: searchTerm, sortInfo });
   };
 
   const handleClickPagination = async (page: number) => {
-    await dispatchCharacters(
-      updateCharacters({ page, limit: paginateInfo.limit, search: searchTerm, sortInfo })
-    );
+    await updateCharacters({ page, limit: paginateInfo.limit, search: searchTerm, sortInfo });
   };
 
   const handleClickSort = async (el: HTMLDivElement | null) => {
@@ -101,14 +82,12 @@ const CardsList = () => {
         }
       : el;
 
-    await dispatchCharacters(
-      updateCharacters({
-        page: paginateInfo.currentPage,
-        limit: paginateInfo.limit,
-        search: searchTerm,
-        sortInfo,
-      })
-    );
+    await updateCharacters({
+      page: paginateInfo.currentPage,
+      limit: paginateInfo.limit,
+      search: searchTerm,
+      sortInfo,
+    });
   };
 
   const limitResults = Array.isArray(characters) && characters.length > 0 && (
@@ -128,27 +107,29 @@ const CardsList = () => {
     </>
   );
 
-  const paginateInfoNav = Array.isArray(characters) && characters.length > 0 && (
-    <div className="pagination">
-      {paginationLinks.map((link, index, links) => {
-        const activeClazz = link === paginateInfo.currentPage ? 'active' : '';
-        return (
-          <div key={crypto.randomUUID()} style={{ display: 'flex' }}>
-            {index > 0 && links[index - 1] < links[index] - 1 && <div>...</div>}
-            <div
-              key={crypto.randomUUID()}
-              onClick={async (e) => {
-                await handleClickPagination(+(e.target as HTMLElement).innerText);
-              }}
-              className={`link ${activeClazz}`}
-            >
-              {link}
+  const paginateInfoNav = Array.isArray(characters) &&
+    characters.length > 0 &&
+    paginationLinks.length > 1 && (
+      <div className="pagination">
+        {paginationLinks.map((link, index, links) => {
+          const activeClazz = link === paginateInfo.currentPage ? 'active' : '';
+          return (
+            <div key={crypto.randomUUID()} style={{ display: 'flex' }}>
+              {index > 0 && links[index - 1] < links[index] - 1 && <div>...</div>}
+              <div
+                key={crypto.randomUUID()}
+                onClick={async (e) => {
+                  await handleClickPagination(+(e.target as HTMLElement).innerText);
+                }}
+                className={`link ${activeClazz}`}
+              >
+                {link}
+              </div>
             </div>
-          </div>
-        );
-      })}
-    </div>
-  );
+          );
+        })}
+      </div>
+    );
 
   const sortNameClazz = sortInfo?.field === ESortField.name ? `active ${sortInfo.direction}` : '';
   const sortSpeciesClazz =

@@ -1,13 +1,16 @@
 import './Character.scss';
 
 import React, { useEffect, useMemo, useState } from 'react';
-import { useLocation } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
-import useCharacters from '../../../hooks/useCharacters';
+import { useSelector } from 'react-redux';
+import { useLocation, useNavigate } from 'react-router-dom';
+
+import { CharactersRootState } from '../../../store';
+
 import { ICharacter } from '../../../interfaces';
 
 const Character = () => {
-  const { characters } = useCharacters();
+  const { characters } = useSelector((state: CharactersRootState) => state.characters);
+
   const { pathname } = useLocation();
 
   const character = useMemo(() => {

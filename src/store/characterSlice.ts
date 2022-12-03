@@ -15,7 +15,7 @@ export const initialCharacterState: IStateCharacter = {
   isLoading: false,
 };
 
-export const updateCharacters = createAsyncThunk(
+export const updateCharactersList = createAsyncThunk(
   'characters/updateCharacters',
   async (
     {
@@ -79,17 +79,17 @@ const charactersSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(updateCharacters.pending, (state) => {
+      .addCase(updateCharactersList.pending, (state) => {
         state.isLoading = true;
         state.characters = [];
       })
-      .addCase(updateCharacters.fulfilled, (state, action) => {
+      .addCase(updateCharactersList.fulfilled, (state, action) => {
         state.isLoading = false;
         state.characters = action.payload.characters;
         state.paginateInfo = action.payload.paginateInfo;
         state.sortInfo = action.payload.sortInfo;
       })
-      .addCase(updateCharacters.rejected, (state, action) => {
+      .addCase(updateCharactersList.rejected, (state, action) => {
         state.isLoading = false;
         state.characters = JSON.parse((action.payload as Error)?.message);
       });

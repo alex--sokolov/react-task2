@@ -1,77 +1,52 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
 import './Search-bar.scss';
-import useCharacters from '../../../hooks/useCharacters';
-import {
-  updateSearchTerm,
-  updateCharacters,
-  initialCharacterState,
-} from '../../../store/characterSlice';
-import { CharactersRootState, useCharactersDispatch } from '../../../store';
+
+import React, { useCallback, useEffect } from 'react';
+import { useSelector } from 'react-redux';
+
+import { CharactersRootState } from '../../../store';
+import useCharactersReducer from '../../../hooks/useCharactersReducer';
 
 const SearchBar = () => {
-  // const { searchTerm, characters, paginateInfo, sortInfo, updateSearchTerm, updateCharacters } =
-  //   useCharacters();
-
-  // const { updateCharacters } = useCharacters();
-
   const { searchTerm, characters, paginateInfo, sortInfo } = useSelector(
     (state: CharactersRootState) => state.characters
   );
 
-  console.log('characters', characters);
-  console.log('paginateInfo', paginateInfo);
-  console.log('currentPage', paginateInfo.currentPage);
-  console.log('sortInfo', sortInfo);
-
-  const dispatchCharacters = useCharactersDispatch();
-
-  const updateSearch = (search: string) => dispatchCharacters(updateSearchTerm(search));
-
-  // const [initialState] = useState({
-  //   characters,
-  //   currentPage: paginateInfo.currentPage,
-  //   limit: paginateInfo.limit,
-  //   sortInfo,
-  //   updateCharacters,
-  //   updateSearchTerm,
-  // });
+  const { updateSearch, updateCharacters } = useCharactersReducer();
 
   const handleKeyPress = async (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.code === 'Enter') {
-      dispatchCharacters(
-        updateCharacters({
-          page: paginateInfo.currentPage,
-          limit: paginateInfo.limit,
-          search: searchTerm,
-          sortInfo,
-        })
-      );
+      await updateCharacters({
+        page: paginateInfo.currentPage,
+        limit: paginateInfo.limit,
+        search: searchTerm,
+        sortInfo,
+      });
     }
   };
 
   const updateInitialState = async () => {
     const searchValue = localStorage.getItem('searchValue');
     const search = searchValue ? JSON.parse(searchValue) : '';
-    // if (initialState.updateSearchTerm) {
-    //   await initialState.updateSearchTerm(search);
-    // }
 
     updateSearch(search);
 
-    if (Array.isArray(characters) && characters.length === 0 && updateCharacters) {
-      await dispatchCharacters(
-        updateCharacters({
-          page: paginateInfo.currentPage,
-          limit: paginateInfo.limit,
-          search: searchTerm,
-          sortInfo,
-        })
-      );
+    if (Array.isArray(characters) && characters.length === 0) {
+      await updateCharacters({
+        page: paginateInfo.currentPage,
+        limit: paginateInfo.limit,
+        search,
+        sortInfo,
+      });
     }
   };
 
-  const setStorageState = useCallback(updateInitialState, [initialCharacterState]);
+  const setStorageState = useCallback(updateInitialState, [
+    characters,
+    paginateInfo,
+    sortInfo,
+    updateSearch,
+    updateCharacters,
+  ]);
 
   useEffect(() => {
     setStorageState().catch(console.error);
@@ -91,8 +66,7 @@ const SearchBar = () => {
         placeholder="Search"
         value={searchTerm}
         onChange={(e) => {
-          console.log('searchTerm: ', e.target.value);
-          dispatchCharacters(updateSearch(e.target.value));
+          updateSearch(e.target.value);
         }}
         onKeyDown={(e) => handleKeyPress(e)}
       />
@@ -101,16 +75,12 @@ const SearchBar = () => {
         className="search-icon"
         data-testid="label-search"
         onClick={async () => {
-          if (updateCharacters) {
-            await dispatchCharacters(
-              updateCharacters({
-                page: paginateInfo.currentPage,
-                limit: paginateInfo.limit,
-                search: searchTerm,
-                sortInfo,
-              })
-            );
-          }
+          await updateCharacters({
+            page: paginateInfo.currentPage,
+            limit: paginateInfo.limit,
+            search: searchTerm,
+            sortInfo,
+          });
         }}
       />
     </section>
