@@ -1,28 +1,30 @@
+import './Forms.scss';
+
 import React, { useEffect, useRef, useState } from 'react';
 import { MultipleFieldErrors, useForm, Controller } from 'react-hook-form';
-import './Forms.scss';
+import { useSelector } from 'react-redux';
 import DatePicker, { DateObject } from 'react-multi-date-picker';
-import {
-  FormFields,
-  Genre,
-  IForm,
-  NotifyType,
-  NotifyMessage,
-  IFormState,
-} from '../../../interfaces';
+
+import FormsCards from '../../ui/Forms-cards/Forms-cards';
+import Spinner from '../../ui/Spinner/Spinner';
+import Notify from '../../ui/Notify/Notify';
+
+import { RootState } from 'store';
+import { initialFormState } from 'store/formSlice';
+
+import useCardsReducer from 'hooks/useCardsReducer';
+import useFormReducer from 'hooks/useFormReducer';
+
+import { readFileAsDataURL } from 'utils/readFileAsDataUrl';
 import {
   isValidDate,
   isValidGenre,
   isValidMax,
   isValidMin,
   isValidOnlyEnglishSymbols,
-} from '../../../utils/validate';
-import { readFileAsDataURL } from '../../../utils/readFileAsDataUrl';
-import FormsCards from '../../ui/Forms-cards/Forms-cards';
-import Spinner from '../../ui/Spinner/Spinner';
-import Notify from '../../ui/Notify/Notify';
-import useFormData from '../../../hooks/useFormData';
-import useCards from '../../../hooks/useCards';
+} from 'utils/validate';
+
+import { FormFields, Genre, IForm, NotifyType, NotifyMessage } from 'interfaces';
 
 const TITLE_MIN_LENGTH = 3;
 const TITLE_MAX_LENGTH = 30;
@@ -32,18 +34,6 @@ const COUNTRY_MIN_LENGTH = 3;
 const COUNTRY_MAX_LENGTH = 20;
 const MIN_DATE = '1997-01-01';
 const MAX_DATE = '2030-12-31';
-
-const initialFormValues: IFormState = {
-  title: '',
-  overview: '',
-  country: '',
-  releaseDate: '',
-  genre: Genre.default,
-  isConfirmPolitics: false,
-  adult: false,
-  logo: undefined,
-  isFormDisabled: false,
-};
 
 const Forms = () => {
   const {
@@ -56,19 +46,24 @@ const Forms = () => {
     adult,
     logo,
     isFormDisabled,
-    updateTitle,
-    updateOverview,
-    updateCountry,
-    updateReleaseDate,
-    updateGenre,
-    updateIsConfirmPolitics,
-    updateAdult,
-    updateLogo,
-    resetForm,
-    updateIsFormDisabled,
-  } = useFormData();
+  } = useSelector((state: RootState) => state.form);
 
-  const { cards, addCard } = useCards();
+  const { updateCards } = useCardsReducer();
+
+  const {
+    setTitle,
+    setOverview,
+    setCountry,
+    setReleaseDate,
+    setGenre,
+    setIsConfirmPolitics,
+    setAdult,
+    setLogo,
+    resetForm,
+    updateFormDisabled,
+  } = useFormReducer();
+
+  const { cards } = useSelector((state: RootState) => state.cards);
 
   const {
     handleSubmit,
@@ -101,9 +96,7 @@ const Forms = () => {
       ...data,
       releaseDate: new Date(data.releaseDate).toLocaleString().slice(0, 10),
     };
-    if (addCard) {
-      addCard(newCard);
-    }
+    updateCards(newCard);
   };
 
   useEffect(() => {
@@ -113,7 +106,7 @@ const Forms = () => {
           resetForm();
         }
         reset({
-          ...initialFormValues,
+          ...initialFormState,
         });
       }, 2000);
     }
@@ -173,11 +166,9 @@ const Forms = () => {
 
   useEffect(() => {
     if (isDirty && isFormDisabled) {
-      if (updateIsFormDisabled) {
-        updateIsFormDisabled(false);
-      }
+      updateFormDisabled(false);
     }
-  }, [isDirty, isFormDisabled, updateIsFormDisabled]);
+  }, [isDirty, isFormDisabled, updateFormDisabled]);
 
   return (
     <section className="forms">
@@ -215,9 +206,7 @@ const Forms = () => {
                 onChange={(e) => {
                   const value = e.target.value;
                   onChange({ target: { name, value: value } });
-                  if (updateTitle) {
-                    updateTitle(value);
-                  }
+                  setTitle(value);
                 }}
                 className={errors.title ? 'error' : ''}
               />
@@ -250,9 +239,7 @@ const Forms = () => {
                 onChange={(e) => {
                   const value = e.target.value;
                   onChange({ target: { name, value: value } });
-                  if (updateOverview) {
-                    updateOverview(value);
-                  }
+                  setOverview(value);
                 }}
                 className={errors.overview ? 'error' : ''}
               />
@@ -289,9 +276,7 @@ const Forms = () => {
                 onChange={(e) => {
                   const value = e.target.value;
                   onChange({ target: { name, value: value } });
-                  if (updateCountry) {
-                    updateCountry(value);
-                  }
+                  setCountry(value);
                 }}
                 className={errors.country ? 'error' : ''}
               />
@@ -320,9 +305,7 @@ const Forms = () => {
                 value={releaseDate || ''}
                 onChange={(date) => {
                   onChange({ target: { name, value: (date as DateObject)?.toDate() } });
-                  if (updateReleaseDate) {
-                    updateReleaseDate((date as DateObject)?.format());
-                  }
+                  setReleaseDate((date as DateObject)?.format());
                 }}
                 format="DD/MM/YYYY"
                 placeholder="DD/MM/YYYY"
@@ -354,9 +337,7 @@ const Forms = () => {
                 onChange={(e) => {
                   const value = e.target.value;
                   onChange({ target: { name, value: value } });
-                  if (updateGenre) {
-                    updateGenre(value as Genre);
-                  }
+                  setGenre(value as Genre);
                 }}
               >
                 <option value="default" disabled>
@@ -393,9 +374,7 @@ const Forms = () => {
                   checked={isConfirmPolitics}
                   onChange={() => {
                     onChange({ target: { name, value: !isConfirmPolitics } });
-                    if (updateIsConfirmPolitics) {
-                      updateIsConfirmPolitics(!isConfirmPolitics);
-                    }
+                    setIsConfirmPolitics(!isConfirmPolitics);
                   }}
                   id={FormFields.isConfirmPolitics}
                   className={errors?.isConfirmPolitics ? 'error' : ''}
@@ -418,9 +397,7 @@ const Forms = () => {
                   checked={adult}
                   onChange={() => {
                     onChange({ target: { name, value: !adult } });
-                    if (updateAdult) {
-                      updateAdult(!adult);
-                    }
+                    setAdult(!adult);
                   }}
                   id={FormFields.adult}
                   name={FormFields.adult}
@@ -454,9 +431,7 @@ const Forms = () => {
                   onChange={async (e) => {
                     const logo = await handleChangeImage(e);
                     onChange({ target: { name, value: logo } });
-                    if (updateLogo) {
-                      updateLogo(logo);
-                    }
+                    setLogo(logo);
                     await trigger('logo');
                   }}
                   accept="image/*"

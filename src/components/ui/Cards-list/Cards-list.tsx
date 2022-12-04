@@ -8,13 +8,13 @@ import Notify from '../Notify/Notify';
 import Spinner from '../Spinner/Spinner';
 
 import useCharactersReducer from '../../../hooks/useCharactersReducer';
-import { CharactersRootState } from '../../../store';
+import { RootState } from '../../../store';
 import { ESortDirection, ESortField, ICharacter, NotifyType } from '../../../interfaces';
 import getPaginateLinks from '../../../utils/getPaginateLinks';
 
 const CardsList = () => {
   const { searchTerm, isLoading, characters, paginateInfo, sortInfo } = useSelector(
-    (state: CharactersRootState) => state.characters
+    (state: RootState) => state.characters
   );
 
   const { updateCharacters } = useCharactersReducer();

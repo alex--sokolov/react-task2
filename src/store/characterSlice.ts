@@ -70,9 +70,6 @@ const charactersSlice = createSlice({
   name: 'characters',
   initialState: initialCharacterState,
   reducers: {
-    toggleLoading(state) {
-      state.isLoading = !state.isLoading;
-    },
     updateSearchTerm(state, action: PayloadAction<string>) {
       state.searchTerm = action.payload;
     },
@@ -96,6 +93,6 @@ const charactersSlice = createSlice({
   },
 });
 
-export const { toggleLoading, updateSearchTerm } = charactersSlice.actions;
+export const { updateSearchTerm } = charactersSlice.actions;
 
 export default charactersSlice.reducer;

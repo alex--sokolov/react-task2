@@ -3,12 +3,12 @@ import './Search-bar.scss';
 import React, { useCallback, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
-import { CharactersRootState } from '../../../store';
+import { RootState } from '../../../store';
 import useCharactersReducer from '../../../hooks/useCharactersReducer';
 
 const SearchBar = () => {
   const { searchTerm, characters, paginateInfo, sortInfo } = useSelector(
-    (state: CharactersRootState) => state.characters
+    (state: RootState) => state.characters
   );
 
   const { updateSearch, updateCharacters } = useCharactersReducer();
@@ -40,13 +40,7 @@ const SearchBar = () => {
     }
   };
 
-  const setStorageState = useCallback(updateInitialState, [
-    characters,
-    paginateInfo,
-    sortInfo,
-    updateSearch,
-    updateCharacters,
-  ]);
+  const setStorageState = useCallback(updateInitialState, []);
 
   useEffect(() => {
     setStorageState().catch(console.error);
