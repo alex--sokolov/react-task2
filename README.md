@@ -7,7 +7,7 @@ git clone https://github.com/rolling-scopes-school/alex--sokolov-REACT2022Q3.git
 # 2. switch to custom-app-state branch
 
 ```javascript
-git checkout "custom-app-state"
+git checkout "Redux"
 ```
 
 # 3. install dependencies
