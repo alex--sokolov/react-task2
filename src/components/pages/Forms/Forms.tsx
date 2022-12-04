@@ -36,6 +36,8 @@ const MIN_DATE = '1997-01-01';
 const MAX_DATE = '2030-12-31';
 
 const Forms = () => {
+  const { cards } = useSelector((state: RootState) => state.cards);
+
   const {
     title,
     overview,
@@ -62,8 +64,6 @@ const Forms = () => {
     resetForm,
     updateFormDisabled,
   } = useFormReducer();
-
-  const { cards } = useSelector((state: RootState) => state.cards);
 
   const {
     handleSubmit,

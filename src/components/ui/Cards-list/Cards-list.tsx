@@ -19,15 +19,9 @@ const CardsList = () => {
 
   const { updateCharacters } = useCharactersReducer();
 
-  const [isFirstRender, setIsFirstRender] = useState<boolean>(true);
-
   const [isShowError, setIsShowError] = useState<boolean>(false);
 
   const [paginationLinks, setPaginationLinks] = useState<number[]>([1]);
-
-  useEffect(() => {
-    setIsFirstRender(false);
-  }, []);
 
   useEffect(() => {
     setPaginationLinks(getPaginateLinks(paginateInfo.currentPage, paginateInfo.maxPage));
@@ -139,70 +133,66 @@ const CardsList = () => {
 
   return (
     <>
-      {!isFirstRender ? (
-        <section className="cards-list" data-testid="cards-list">
-          <Notify
-            isShow={isShowError}
-            message={
-              !Array.isArray(characters)
-                ? `${characters?.errorCode} | ${characters?.errorMessage}`
-                : ''
-            }
-            type={NotifyType.ERROR}
-          />
-          <h1>Harry Potter characters</h1>
-          {Array.isArray(characters) && characters.length > 0 && (
-            <div style={{ display: 'flex', justifyContent: 'center', marginRight: '30px' }}>
-              <div>Sort by:</div>
-              <div
-                className={`sort-field ${sortNameClazz}`}
-                onClick={async (e) => {
-                  await handleClickSort(e.target as HTMLDivElement);
-                }}
-              >
-                {ESortField.name}
-              </div>
-              <div
-                className={`sort-field ${sortSpeciesClazz}`}
-                onClick={async (e) => {
-                  await handleClickSort(e.target as HTMLDivElement);
-                }}
-              >
-                {ESortField.species}
-              </div>
-              <div
-                className={`sort-field ${sortImageClazz}`}
-                onClick={async (e) => {
-                  await handleClickSort(e.target as HTMLDivElement);
-                }}
-              >
-                {ESortField.image}
-              </div>
-              <div
-                className={`sort-field ${sortDefaultClazz}`}
-                onClick={async () => {
-                  await handleClickSort(null);
-                }}
-              >
-                {ESortField.default}
-              </div>
-              <div style={{ marginLeft: '30px' }}>{limitResults}</div>
+      <section className="cards-list" data-testid="cards-list">
+        <Notify
+          isShow={isShowError}
+          message={
+            !Array.isArray(characters)
+              ? `${characters?.errorCode} | ${characters?.errorMessage}`
+              : ''
+          }
+          type={NotifyType.ERROR}
+        />
+        <h1>Harry Potter characters</h1>
+        {Array.isArray(characters) && characters.length > 0 && (
+          <div style={{ display: 'flex', justifyContent: 'center', marginRight: '30px' }}>
+            <div>Sort by:</div>
+            <div
+              className={`sort-field ${sortNameClazz}`}
+              onClick={async (e) => {
+                await handleClickSort(e.target as HTMLDivElement);
+              }}
+            >
+              {ESortField.name}
             </div>
-          )}
-          {isLoading ? (
-            <div className="spinner" style={{ position: 'absolute' }}>
-              <Spinner isLoading />
+            <div
+              className={`sort-field ${sortSpeciesClazz}`}
+              onClick={async (e) => {
+                await handleClickSort(e.target as HTMLDivElement);
+              }}
+            >
+              {ESortField.species}
             </div>
-          ) : (
-            <>
-              <div className="characters-list">{charactersList}</div>
-              {paginateInfoNav}
-            </>
-          )}
-        </section>
-      ) : (
-        <></>
-      )}
+            <div
+              className={`sort-field ${sortImageClazz}`}
+              onClick={async (e) => {
+                await handleClickSort(e.target as HTMLDivElement);
+              }}
+            >
+              {ESortField.image}
+            </div>
+            <div
+              className={`sort-field ${sortDefaultClazz}`}
+              onClick={async () => {
+                await handleClickSort(null);
+              }}
+            >
+              {ESortField.default}
+            </div>
+            <div style={{ marginLeft: '30px' }}>{limitResults}</div>
+          </div>
+        )}
+        {isLoading ? (
+          <div className="spinner" style={{ position: 'absolute' }}>
+            <Spinner isLoading />
+          </div>
+        ) : (
+          <>
+            <div className="characters-list">{charactersList}</div>
+            {paginateInfoNav}
+          </>
+        )}
+      </section>
     </>
   );
 };
