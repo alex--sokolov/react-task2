@@ -143,10 +143,10 @@ const CardsList = () => {
           }
           type={NotifyType.ERROR}
         />
-        <h1>Harry Potter characters</h1>
+        <h1 className="characters-main-title">Harry Potter characters</h1>
         {Array.isArray(characters) && characters.length > 0 && (
           <div style={{ display: 'flex', justifyContent: 'center', marginRight: '30px' }}>
-            <div>Sort by:</div>
+            <div className="sort-title">Sort by:</div>
             <div
               className={`sort-field ${sortNameClazz}`}
               onClick={async (e) => {

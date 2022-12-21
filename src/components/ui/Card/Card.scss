@@ -1,18 +1,19 @@
 .character {
   display: block;
   text-align: center;
-  color: #444;
+  color: white;
   padding: 10px;
-  border: 1px solid dodgerblue;
+  border: 1px solid white;
   border-radius: 25px;
   width: 170px;
   height: 300px;
-  box-shadow: 0 0 5px 1px dodgerblue;
+  backdrop-filter: blur(4px);
+  text-decoration: none;
   transition: .2s;
 
   &:hover, &.active {
-    color: #ddd;
-    background-color: dodgerblue;
+    backdrop-filter: brightness(2);
+    box-shadow: 0 0 5px 1px white;
     cursor: pointer;
     transition: .2s;
   }

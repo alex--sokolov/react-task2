@@ -5,13 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7665eb75-58a6-4ab1-9f31-f0e58e6f0ff3" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Characters/CharacterContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Characters/CharacterContext.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Characters/charactersReducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Characters/charactersReducer.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/Cards-list/Cards-list.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/Cards-list/Cards-list.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/Search-bar/Search-bar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/Search-bar/Search-bar.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/interfaces.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/interfaces.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/api.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/api.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -80,6 +74,7 @@
       <workItem from="1667051382880" duration="1233000" />
       <workItem from="1668081761251" duration="106000" />
       <workItem from="1669635024010" duration="28000" />
+      <workItem from="1671621363430" duration="617000" />
     </task>
     <servers />
   </component>

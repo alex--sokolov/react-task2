@@ -7,10 +7,10 @@ const MainPage: FC = () => {
   return (
     <>
       <div id="overlay" />
-      <div>
+      <section className="characters-container">
         <SearchBar />
         <CardsList />
-      </div>
+      </section>
     </>
   );
 };

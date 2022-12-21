@@ -12,13 +12,10 @@ const Header = () => {
       <BreadcrumbTrail breadcrumbs={breadcrumbs} />
 
       <NavLink end to="/" data-testid="main-link">
-        Main
-      </NavLink>
-      <NavLink to="/about" data-testid="about-link">
-        About
+        Characters
       </NavLink>
       <NavLink to="/forms" data-testid="forms-link">
-        Forms
+        Add movie
       </NavLink>
     </header>
   );

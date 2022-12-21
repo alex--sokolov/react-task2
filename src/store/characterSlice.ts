@@ -9,7 +9,7 @@ export const initialCharacterState: IStateCharacter = {
   paginateInfo: {
     currentPage: 1,
     maxPage: 1,
-    limit: 10,
+    limit: 30,
   },
   sortInfo: null,
   isLoading: false,

@@ -3,7 +3,8 @@
   height: 40px;
   justify-content: center;
   align-items: flex-start;
-  background-color: #282c34;
+  border-bottom: 1px solid darkcyan;
+  box-shadow: 0 -2px 15px 4px darkcyan;
   font-size: calc(4px + 2vmin);
   color: white;
   a {
