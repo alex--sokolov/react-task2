@@ -2,6 +2,7 @@ $shadow: .3rem .3rem .6rem #c8d0e7,
 -.2rem -.2rem .5rem #fff;
 
 section.forms {
+  min-height: calc(100vh - 112px);
 
   .form-add-movie {
     display: flex;
@@ -67,7 +68,7 @@ section.forms {
 
     label {
       width: 50%;
-      color: #666;
+      color: #ddd;
       text-align: right;
       padding-right: 5px;
     }
@@ -176,7 +177,7 @@ section.forms {
 
     div:first-child {
       width: 50%;
-      color: #666;
+      color: #ddd;
       text-align: right;
       padding-right: 5px;
     }
